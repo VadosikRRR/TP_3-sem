@@ -2,9 +2,9 @@
 using namespace std;
 
 struct text_editor {
-    explicit text_editor(int start_amount_of_memory = 1024) : amount_of_memory(start_amount_of_memory) {
+    explicit text_editor(int start_amount_of_memory = 1024) : used_amount_of_memory(0), amount_of_memory(start_amount_of_memory) {
         files_name = "";
-        p_text = new string[amount_of_memory];
+        text;
     }
 
     // creates a new file named name_of_file
@@ -19,8 +19,9 @@ struct text_editor {
     }
 
     // adds new text in the end
-    void add(string text) {
-
+    void add(string new_text) {
+        is_there_file();
+        text += new_text;
     }
 
     // moves cursor to position "position"
@@ -85,12 +86,21 @@ struct text_editor {
 
     private:
         void update_memory() {
-            delete [] p_text;
-            p_text = new string[amount_of_memory];
+            text = "";
+            files_name = "";
         }
 
+        bool is_there_file() {
+            return files_name != "";
+        }
+
+        bool is_free_memory() {
+
+        }
+
+        int used_amount_of_memory;
         int amount_of_memory;
         string files_name;
-        string * p_text;
+        string text;
 };
 
