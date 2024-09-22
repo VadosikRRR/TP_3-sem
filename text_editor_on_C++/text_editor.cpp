@@ -2,14 +2,15 @@
 using namespace std;
 
 struct text_editor {
-    explicit text_editor(int amount_of_memory = 1024) : start_amount_of_memory(amount_of_memory) {
-        p_files_name = NULL;
+    explicit text_editor(int start_amount_of_memory = 1024) : amount_of_memory(start_amount_of_memory) {
+        files_name = "";
         p_text = new string[amount_of_memory];
     }
 
     // creates a new file named name_of_file
     void create(string name_of_file) {
-
+        update_memory();
+        files_name = name_of_file;
     }
 
     // loads file named name_of_file
@@ -83,7 +84,13 @@ struct text_editor {
     }
 
     private:
-        int start_amount_of_memory;
-        string * p_files_name;
+        void update_memory() {
+            delete [] p_text;
+            p_text = new string[amount_of_memory];
+        }
+
+        int amount_of_memory;
+        string files_name;
         string * p_text;
-}
+};
+
