@@ -10,7 +10,7 @@ struct string {
         used_amount_of_memory += length(p_new_text);
     }
 
-    string operator+=(string add_text) {
+    void operator+=(string add_text) {
         check_memory(add_text.used_amount_of_memory);
         copy_chars(p_text + used_amount_of_memory, add_text.p_text + add_text.used_amount_of_memory);
         used_amount_of_memory += add_text.used_amount_of_memory;
@@ -24,6 +24,7 @@ struct string {
         void check_memory(int add_memory) {
             if (add_memory + used_amount_of_memory > amount_of_memory) {
                 double_memory();
+                check_memory(add_memory);   // Можно оптимищзровать
             }
         }
 //

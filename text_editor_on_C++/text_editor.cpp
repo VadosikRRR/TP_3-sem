@@ -2,9 +2,9 @@
 using namespace std;
 
 struct text_editor {
-    explicit text_editor(int start_amount_of_memory = 1024) : used_amount_of_memory(0), amount_of_memory(start_amount_of_memory) {
-        files_name = "";
-        text;
+    explicit text_editor(int start_amount_of_memory = 1024) : files_name("") {
+        is_correct_number(start_amount_of_memory);
+        text = "";
     }
 
     // creates a new file named name_of_file
@@ -98,8 +98,10 @@ struct text_editor {
 
         }
 
-        int used_amount_of_memory;
-        int amount_of_memory;
+        bool is_correct_number(int number) {
+            return number > 0;
+        }
+
         string files_name;
         string text;
 };
