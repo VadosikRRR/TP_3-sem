@@ -54,7 +54,16 @@ public:
 };
 
 
-class RemoveCommand : Command {};
+class RemoveCommand : Command {
+private:
+    int _old_index;
+    int _start_index;
+    int _end_index;
+    std::string &_text;
+public:
+    RemoveCommand(std::string &text, int old_index, int start_index, int end_index);
+    virtual void Execute();
+};
 
 
 class DeleteSymbolCommand : Command {

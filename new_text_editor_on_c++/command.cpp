@@ -41,3 +41,13 @@ DeleteFewSymbolsCommand::DeleteFewSymbolsCommand(std::string &text, int index, i
 void DeleteFewSymbolsCommand::Execute() {
     _text.erase(_index - _symbols_number, _symbols_number);
 }
+
+RemoveCommand::RemoveCommand(std::string &text, int old_index, int start_index, int end_index) : _text(text), _old_index(old_index), _start_index(start_index), _end_index(end_index) {}
+
+void RemoveCommand::Execute() {
+    Command *move = new MoveCommand(_text, _old_index, _start_index);
+    move->Execute();
+    delete move;
+
+    _text.erase(_start_index, _end_index);
+}
