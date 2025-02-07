@@ -66,4 +66,12 @@ public:
     virtual void Execute();
 };
 
-
+class DeleteFewSymbolsCommand : Command {
+private:
+    int _index;
+    int _symbols_number;
+    std::string &_text;
+public:
+    DeleteFewSymbolsCommand(std::string &text, int index, int symbols_number);
+    virtual void Execute();
+};

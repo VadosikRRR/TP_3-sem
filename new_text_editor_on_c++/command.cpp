@@ -35,3 +35,9 @@ DeleteSymbolCommand::DeleteSymbolCommand(std::string &text, int index) : _text(t
 void DeleteSymbolCommand::Execute() {
     _text.erase(_index - 1, 1);
 }
+
+DeleteFewSymbolsCommand::DeleteFewSymbolsCommand(std::string &text, int index, int symbols_number) : _text(text), _index(index), _symbols_number(symbols_number) {}
+
+void DeleteFewSymbolsCommand::Execute() {
+    _text.erase(_index - _symbols_number, _symbols_number);
+}
