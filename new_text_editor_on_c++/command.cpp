@@ -12,9 +12,20 @@ void MoveCommand::Execute() {
     _old_index = _new_index;
 }
 
-InsertCommand::InsertCommand(std::string &text, std::string new_text, int index) : _text(text), _new_text(new_text), _index(index) {}
+InsertCommand::InsertCommand(std::string &text, std::string new_text, int old_index, int new_index) : _text(text), _new_text(new_text), _old_index(old_index), _new_index(new_index) {}
 
 void InsertCommand::Execute() {
-    _text.insert(_index, _new_text);
+    Command *move = new MoveCommand(_text, _old_index, _new_index);
+    move->Execute();
+    delete move;
+
+    Command *put = new PutCommand(_text, _new_text, _new_index);
+    put->Execute();
+    delete put;
 }
 
+PutCommand::PutCommand(std::string &text, std::string new_text, int index) : _text(text), _new_text(new_text), _index(index) {}
+
+void PutCommand::Execute() {
+    _text.insert(_index, _new_text);
+}

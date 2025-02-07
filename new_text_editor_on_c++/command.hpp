@@ -33,11 +33,22 @@ public:
 
 class InsertCommand : public Command {
 private:
-    private:
+    int _old_index;
+    int _new_index;
+    std::string _new_text;
+    std::string &_text;
+public:
+    InsertCommand(std::string &text, std::string new_text, int old_index, int new_index);
+    virtual void Execute();
+};
+
+
+class PutCommand : public Command {
+private:
     int _index;
     std::string _new_text;
     std::string &_text;
 public:
-    InsertCommand(std::string &text, std::string new_text, int index);
+    PutCommand(std::string &text, std::string new_text, int index);
     virtual void Execute();
 };
