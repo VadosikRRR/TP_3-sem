@@ -29,3 +29,9 @@ PutCommand::PutCommand(std::string &text, std::string new_text, int index) : _te
 void PutCommand::Execute() {
     _text.insert(_index, _new_text);
 }
+
+DeleteSymbolCommand::DeleteSymbolCommand(std::string &text, int index) : _text(text), _index(index) {}
+
+void DeleteSymbolCommand::Execute() {
+    _text.erase(_index - 1, 1);
+}

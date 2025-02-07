@@ -52,3 +52,18 @@ public:
     PutCommand(std::string &text, std::string new_text, int index);
     virtual void Execute();
 };
+
+
+class RemoveCommand : Command {};
+
+
+class DeleteSymbolCommand : Command {
+private:
+    int _index;
+    std::string &_text;
+public:
+    DeleteSymbolCommand(std::string &text, int index);
+    virtual void Execute();
+};
+
+
