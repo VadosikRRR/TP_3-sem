@@ -54,7 +54,7 @@ public:
 };
 
 
-class RemoveCommand : Command {
+class RemoveCommand : public Command {
 private:
     int _old_index;
     int _start_index;
@@ -66,7 +66,7 @@ public:
 };
 
 
-class DeleteSymbolCommand : Command {
+class DeleteSymbolCommand : public Command {
 private:
     int _index;
     std::string &_text;
@@ -75,12 +75,55 @@ public:
     virtual void Execute();
 };
 
-class DeleteFewSymbolsCommand : Command {
+
+class DeleteFewSymbolsCommand : public Command {
 private:
     int _index;
     int _symbols_number;
     std::string &_text;
 public:
     DeleteFewSymbolsCommand(std::string &text, int index, int symbols_number);
+    virtual void Execute();
+};
+
+
+class MoveLeftOnSomeWordsCommand : public Command {
+private:
+    int _index;
+    int _words_number;
+    std::string &_text;
+public:
+    MoveLeftOnSomeWordsCommand(std::string &text, int index, int words_number);
+    virtual void Execute();
+};
+
+
+class MoveRightOnSomeWordsCommand : public Command {
+private:
+    int _index;
+    int _words_number;
+    std::string &_text;
+public:
+    MoveRightOnSomeWordsCommand(std::string &text, int index, int words_number);
+    virtual void Execute();
+};
+
+
+class UpCaseCommand : public Command {
+private:
+    int _index;
+    std::string &_text;
+public:
+    UpCaseCommand(std::string &text, int index);
+    virtual void Execute();
+};
+
+
+class LowCaseCommand : public Command { 
+private:
+    int _index;
+    std::string &_text;
+public:
+    LowCaseCommand(std::string &text, int index);
     virtual void Execute();
 };

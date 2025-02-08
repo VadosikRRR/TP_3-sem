@@ -51,3 +51,45 @@ void RemoveCommand::Execute() {
 
     _text.erase(_start_index, _end_index);
 }
+
+MoveLeftOnSomeWordsCommand::MoveLeftOnSomeWordsCommand(std::string &text, int index, int words_number) : _text(text), _index(index), _words_number(words_number) {}
+
+void MoveLeftOnSomeWordsCommand::Execute() {
+    int new_index = find_index_after_some_words(_text, _index, _words_number, true);
+    Command *move = new MoveCommand(_text, _index, new_index);
+    move->Execute();
+    delete move;
+}//////////////////
+
+int find_index_after_some_words(std::string &text, int index, int words_number, bool is_reverse) {
+    return 0; ///////////////////////////////////////////////////////////////////
+}
+
+MoveRightOnSomeWordsCommand::MoveRightOnSomeWordsCommand(std::string &text, int index, int words_number) : _text(text), _index(index), _words_number(words_number) {}
+
+void MoveRightOnSomeWordsCommand::Execute() {
+    int new_index = find_index_after_some_words(_text, _index, _words_number, false);
+    Command *move = new MoveCommand(_text, _index, new_index);
+    move->Execute();
+    delete move;
+}/////////////////
+
+UpCaseCommand::UpCaseCommand(std::string &text, int index) : _text(text), _index(index) {}
+
+void UpCaseCommand::Execute() {
+    int start_index = find_index_after_some_words(_text, _index, 1, true);
+    int end_index = find_index_after_some_words(_text, _index, 1, false);
+    to_upper_str(_text, start_index, end_index);
+}
+
+void to_upper_str(std::string &text, int start_index, int end_index) {} ////////////////////////////////////////////////
+
+LowCaseCommand::LowCaseCommand(std::string &text, int index) : _text(text), _index(index) {}
+
+void LowCaseCommand::Execute() {
+    int start_index = find_index_after_some_words(_text, _index, 1, true);
+    int end_index = find_index_after_some_words(_text, _index, 1, false);
+    to_upper_str(_text, start_index, end_index);
+}
+
+void to_low_str(std::string &text, int start_index, int end_index) {} //////////////////////////////////////////////////
