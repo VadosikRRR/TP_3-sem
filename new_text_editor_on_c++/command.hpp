@@ -127,3 +127,24 @@ public:
     LowCaseCommand(std::string &text, int index);
     virtual void Execute();
 };
+
+
+class FindCommand : public Command {
+private:
+    std::string _needed_text;
+    std::string &_text;
+public:
+    FindCommand(std::string &text, std::string needed_text);
+    virtual void Execute();
+};
+
+
+class ReplaceCommand : public Command {
+private:
+    std::string _old_text;
+    std::string _new_text;
+    std::string &_text;
+public:
+    ReplaceCommand(std::string &text, std::string old_text, std::string new_text);
+    virtual void Execute();
+};

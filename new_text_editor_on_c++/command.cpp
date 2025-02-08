@@ -93,3 +93,16 @@ void LowCaseCommand::Execute() {
 }
 
 void to_low_str(std::string &text, int start_index, int end_index) {} //////////////////////////////////////////////////
+
+FindCommand::FindCommand(std::string &text, std::string needed_text) : _text(text), _needed_text(needed_text) {}
+
+void FindCommand::Execute() {
+    /////////////////////
+}
+
+ReplaceCommand::ReplaceCommand(std::string &text, std::string old_text, std::string new_text) : _text(text), _old_text(old_text), _new_text(new_text) {}
+
+void ReplaceCommand::Execute() {
+    /////////////////////
+}
+
