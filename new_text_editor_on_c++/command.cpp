@@ -106,3 +106,14 @@ void ReplaceCommand::Execute() {
     /////////////////////
 }
 
+SaveCommand::SaveCommand(std::string &text, std::string name, std::string path) : _text(text), _name(name), _path(path) {}
+
+void SaveCommand::Execute() {
+    ///////////////////////////////////
+}
+
+LoadCommand::LoadCommand(std::string &text, std::string name, std::string path) : _text(text), _name(name), _path(path) {}
+
+void LoadCommand::Execute() {
+    /////////////////////////////////////
+}

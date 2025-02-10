@@ -148,3 +148,25 @@ public:
     ReplaceCommand(std::string &text, std::string old_text, std::string new_text);
     virtual void Execute();
 };
+
+
+class SaveCommand : public Command {
+private:
+    std::string _name;
+    std::string _path;
+    std::string &_text;
+public:
+    SaveCommand(std::string &text, std::string name, std::string path);
+    virtual void Execute();
+};
+
+
+class LoadCommand : public Command {
+private:
+    std::string _name;
+    std::string _path;
+    std::string &_text;
+public:
+    LoadCommand(std::string &text, std::string name, std::string path);
+    virtual void Execute();
+};
