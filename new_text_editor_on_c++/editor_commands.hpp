@@ -1,0 +1,184 @@
+#pragma once
+#include "document.hpp"
+#include <iostream>
+#include <bits/stdc++.h>
+
+
+extern std::string ADD;
+extern std::string MOVE;
+extern std::string INSERT;
+extern std::string PUT;
+extern std::string REMOVE;
+extern std::string DEL;
+extern std::string MOVELW;
+extern std::string MOVERW;
+extern std::string UPCASE;
+extern std::string LOWCASE;
+extern std::string PEPLACE;
+extern std::string FIND;
+extern std::string SAVE;
+extern std::string LOAD;
+
+class Command {
+protected:
+    Document &_document;
+    Command(Document &document);
+public:
+    virtual ~Command();
+    virtual void Execute() = 0;
+};
+
+
+class AddCommand : public Command {
+private:
+    std::string _new_text;
+public:
+    AddCommand(Document &document, std::string new_text);
+    virtual void Execute();
+};
+
+
+class MoveCommand : public Command {
+private:
+    int _new_index;
+public:
+    MoveCommand(Document &document, int new_index);
+    virtual void Execute();
+};
+
+
+class InsertCommand : public Command {
+private:
+    int _position;
+    std::string _new_text;
+public:
+    InsertCommand(Document &document, std::string new_text, int position);
+    virtual void Execute();
+};
+
+
+class PutCommand : public Command {
+private:
+    std::string _new_text;
+public:
+    PutCommand(Document &document, std::string new_text);
+    virtual void Execute();
+};
+
+
+// class RemoveCommand : public Command {
+// private:
+//     int _old_index;
+//     int _start_index;
+//     int _end_index;
+//     std::string &_text;
+// public:
+//     RemoveCommand(std::string &text, int old_index, int start_index, int end_index);
+//     virtual void Execute();
+// };
+
+
+// class DeleteSymbolCommand : public Command {
+// private:
+//     int _index;
+//     std::string &_text;
+// public:
+//     DeleteSymbolCommand(std::string &text, int index);
+//     virtual void Execute();
+// };
+
+
+// class DeleteFewSymbolsCommand : public Command {
+// private:
+//     int _index;
+//     int _symbols_number;
+//     std::string &_text;
+// public:
+//     DeleteFewSymbolsCommand(std::string &text, int index, int symbols_number);
+//     virtual void Execute();
+// };
+
+
+// class MoveLeftOnSomeWordsCommand : public Command {
+// private:
+//     int _index;
+//     int _words_number;
+//     std::string &_text;
+// public:
+//     MoveLeftOnSomeWordsCommand(std::string &text, int index, int words_number);
+//     virtual void Execute();
+// };
+
+
+// class MoveRightOnSomeWordsCommand : public Command {
+// private:
+//     int _index;
+//     int _words_number;
+//     std::string &_text;
+// public:
+//     MoveRightOnSomeWordsCommand(std::string &text, int index, int words_number);
+//     virtual void Execute();
+// };
+
+
+// class UpCaseCommand : public Command {
+// private:
+//     int _index;
+//     std::string &_text;
+// public:
+//     UpCaseCommand(std::string &text, int index);
+//     virtual void Execute();
+// };
+
+
+// class LowCaseCommand : public Command { 
+// private:
+//     int _index;
+//     std::string &_text;
+// public:
+//     LowCaseCommand(std::string &text, int index);
+//     virtual void Execute();
+// };
+
+
+// class FindCommand : public Command {
+// private:
+//     std::string _needed_text;
+//     std::string &_text;
+// public:
+//     FindCommand(std::string &text, std::string needed_text);
+//     virtual void Execute();
+// };
+
+
+// class ReplaceCommand : public Command {
+// private:
+//     std::string _old_text;
+//     std::string _new_text;
+//     std::string &_text;
+// public:
+//     ReplaceCommand(std::string &text, std::string old_text, std::string new_text);
+//     virtual void Execute();
+// };
+
+
+// class SaveCommand : public Command {
+// private:
+//     std::string _name;
+//     std::string _path;
+//     std::string &_text;
+// public:
+//     SaveCommand(std::string &text, std::string name, std::string path);
+//     virtual void Execute();
+// };
+
+
+// class LoadCommand : public Command {
+// private:
+//     std::string _name;
+//     std::string _path;
+//     std::string &_text;
+// public:
+//     LoadCommand(std::string &text, std::string name, std::string path);
+//     virtual void Execute();
+// };
