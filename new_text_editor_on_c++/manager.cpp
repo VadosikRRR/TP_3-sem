@@ -12,6 +12,7 @@ Manager::Manager() {
     _commands[MOVE] = new HandlerMoveArgument();
     _commands[PUT] = new HandlerPutArgument();
     _commands[INSERT] = new HandlerInsertArgument();
+    _commands[DEL] = new HandlerDeleteSymbolArgument();
 }
 
 Manager * Manager::Instance() {

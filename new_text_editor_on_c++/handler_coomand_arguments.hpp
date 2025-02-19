@@ -48,3 +48,10 @@ public:
     HandlerInsertArgument();
     virtual Command * Execute(Document &document, std::string string_args);
 };
+
+
+class HandlerDeleteSymbolArgument : public HandlerCoomandArguments {
+public:
+    HandlerDeleteSymbolArgument();
+    virtual Command * Execute(Document &document, std::string string_args);
+};

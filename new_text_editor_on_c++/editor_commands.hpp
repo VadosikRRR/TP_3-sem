@@ -78,14 +78,11 @@ public:
 // };
 
 
-// class DeleteSymbolCommand : public Command {
-// private:
-//     int _index;
-//     std::string &_text;
-// public:
-//     DeleteSymbolCommand(std::string &text, int index);
-//     virtual void Execute();
-// };
+class DeleteSymbolCommand : public Command {
+public:
+    DeleteSymbolCommand(Document &document);
+    virtual void Execute();
+};
 
 
 // class DeleteFewSymbolsCommand : public Command {

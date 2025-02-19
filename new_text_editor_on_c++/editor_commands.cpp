@@ -29,32 +29,16 @@ void AddCommand::Execute() {
 MoveCommand::MoveCommand(Document &document, int new_index) : _new_index(new_index), Command(document) {}
 
 void MoveCommand::Execute() {
-    if (_new_index < 0 || _document.GetDocumentText().length() <= _new_index) {
-        std::cout << "EBAT TI CHEL" << std::endl;;
-        return;
-    }
-    
     _document.GetCursorPosition() = _new_index;
 }
 
 InsertCommand::InsertCommand(Document &document, std::string new_text, int position) : _new_text(new_text), _position(position), Command(document) {}
 
 void InsertCommand::Execute() { //////////////////
-    // Command *move = new MoveCommand(_document, _position);
-    // move->Execute();
-    // delete move;
-
-    // Command *put = new PutCommand(_document, _new_text);
-    // put->Execute();
-    // delete put;
-
-    if (_position < 0 || _document.GetDocumentText().length() <= _position) {
-        std::cout << "EBAT TI CHEL" << std::endl;;
-        return;
-    }
-
-    _document.GetCursorPosition() = _position;
-
+    Command *move = new MoveCommand(_document, _position);
+    move->Execute();
+    delete move;
+    
     Command *put = new PutCommand(_document, _new_text);
     put->Execute();
     delete put;
@@ -67,11 +51,12 @@ void PutCommand::Execute() {
     _document.GetCursorPosition() += _new_text.length() - 1;
 }
 
-// DeleteSymbolCommand::DeleteSymbolCommand(std::string &text, int index) : _text(text), _index(index) {}
+DeleteSymbolCommand::DeleteSymbolCommand(Document &document) : Command(document) {}
 
-// void DeleteSymbolCommand::Execute() {
-//     _text.erase(_index - 1, 1);
-// }
+void DeleteSymbolCommand::Execute() {
+    _document.GetDocumentText().erase(_document.GetCursorPosition(), 1);
+    _document.GetCursorPosition()--;
+}
 
 // DeleteFewSymbolsCommand::DeleteFewSymbolsCommand(std::string &text, int index, int symbols_number) : _text(text), _index(index), _symbols_number(symbols_number) {}
 

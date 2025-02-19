@@ -5,6 +5,7 @@ int AGRUMENT_NUMBER_ADD = 1;
 int AGRUMENT_NUMBER_MOVE = 1;
 int AGRUMENT_NUMBER_PUT = 1;
 int AGRUMENT_NUMBER_INSERT = 2;
+int AGRUMENT_NUMBER_DELETE_SYMBOL = 0;
 
 HandlerCoomandArguments::~HandlerCoomandArguments() {}
 
@@ -25,9 +26,6 @@ Command * HandlerAddArguments::Execute(Document &document, std::string string_ar
 }
                          
 HandlerMoveArgument::HandlerMoveArgument() : HandlerCoomandArguments(AGRUMENT_NUMBER_MOVE) {}
-    // std::istringstream iss(command_text);
-    // std::string command;
-    // iss >> command;
 
 Command * HandlerMoveArgument::Execute(Document &document, std::string string_args) {
     std::string arg1 = "BAN";
@@ -40,6 +38,11 @@ Command * HandlerMoveArgument::Execute(Document &document, std::string string_ar
             return NULL;
         }
         
+        if (new_cursor_position < 0 || document.GetDocumentText().length() <= new_cursor_position) {
+            std::cout << "ARGUMENT ERROR" << std::endl;
+            return NULL;
+        }
+
         return new MoveCommand(document, new_cursor_position);
     }
     catch(const std::invalid_argument& e) {
@@ -68,7 +71,12 @@ Command * HandlerInsertArgument::Execute(Document &document, std::string string_
     try {
         int new_cursor_position = std::stoi(arg1);
         if (string_args.substr(arg1.length()) != "" && string_args.substr(arg1.length() + 1) != "") {
-            return new InsertCommand(document, string_args.substr(arg1.length() + 1), new_cursor_position);
+            if (new_cursor_position < 0 || document.GetDocumentText().length() <= new_cursor_position) {
+                std::cout << "ARGUMENT ERROR" << std::endl;
+                return NULL;
+            }
+
+            return new InsertCommand(document, string_args.substr(arg1.length() + 2), new_cursor_position);
         }
 
         return NULL;
@@ -77,4 +85,21 @@ Command * HandlerInsertArgument::Execute(Document &document, std::string string_
             std::cout << "Ты что, ЕБАНУЛСЯ? А НИЧЁ ТОТ ФАКТ, ЧТО ЭТО НЕ МОЖЕТ БЫТЬ ПОЗИЦИЕЙ КУРСОРА";
             return NULL;
     }
+}
+
+
+HandlerDeleteSymbolArgument::HandlerDeleteSymbolArgument() : HandlerCoomandArguments(AGRUMENT_NUMBER_DELETE_SYMBOL) {}
+
+Command * HandlerDeleteSymbolArgument::Execute(Document &document, std::string string_args) {
+    if (string_args != "") {
+        std::cout << "ARGUMENT ERROR" << std::endl;
+        return NULL;
+    }
+
+    if (document.GetCursorPosition() == 0) {
+        std::cout << "INCORRECT CASE" << std::endl;
+        return NULL;
+    }
+
+    return new DeleteSymbolCommand(document);
 }
