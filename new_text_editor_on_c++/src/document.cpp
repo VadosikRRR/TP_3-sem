@@ -1,4 +1,4 @@
-#include "document.hpp"
+#include "include/document.hpp"
 
 
 // Document::Document(std::string text, std::string name, std::string path_to_folder) : _name(name), _path_to_folder(path_to_folder), _text(text) {}
