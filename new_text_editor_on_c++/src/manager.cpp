@@ -20,6 +20,7 @@ Manager::Manager() {
     _commands[LOWCASE] = new HandlerLowCaseArguments();
     _commands[FIND] = new HandlerFindArguments();
     _commands["replace"] = new HandlerReplaceArguments();
+    _commands[SAVE] = new HandlerSaveArguments();
 }
 
 Manager::~Manager() {

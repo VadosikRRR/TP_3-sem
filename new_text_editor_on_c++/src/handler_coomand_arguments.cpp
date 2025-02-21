@@ -250,3 +250,14 @@ Command * HandlerReplaceArguments::Execute(Document &document, std::string strin
 
     return new ReplaceCommand(document, arg1, arg2);
 }
+
+
+HandlerSaveArguments::HandlerSaveArguments() {}
+
+Command * HandlerSaveArguments::Execute(Document &document, std::string string_args) {
+    if (string_args == "" || string_args.substr(1) == "") {
+        return NULL;
+    }
+
+    return new SaveCommand(document, string_args.substr(1));
+}

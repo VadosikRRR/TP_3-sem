@@ -3,11 +3,12 @@
 #include <map>
 
 
+#define PATH_TO_FILES "../files/"
+
 class Document {
 private:
     int _cursor_position;
     std::string _name;
-    // std::string _path_to_folder;
     std::string _text;
     std::map<int, int> _highlighting;
 public:

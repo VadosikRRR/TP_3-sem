@@ -1,5 +1,7 @@
 #include "include/editor_commands.hpp"
 #include <string>
+#include <fstream>
+
 
 Command::Command(Document &document) : _document(document) {}
 
@@ -221,11 +223,20 @@ void ReplaceCommand::Execute() {
     _document.GetHigjligjting() = new_highlighter;
 }
 
-// SaveCommand::SaveCommand(std::string &text, std::string name, std::string path) : _text(text), _name(name), _path(path) {}
+SaveCommand::SaveCommand(Document &document, std::string name) : _name(name), Command(document) {}
 
-// void SaveCommand::Execute() {
-//     ///////////////////////////////////
-// }
+void SaveCommand::Execute() {
+    std::string path = PATH_TO_FILES + _name + ".txt";
+    std::ofstream out_file(path);
+
+    if (!out_file) {
+        std::cerr << "Ошибка открытия файла: " << path << std::endl;
+        return;
+    }
+
+    out_file << _document.GetDocumentText();
+    out_file.close();
+}
 
 // LoadCommand::LoadCommand(std::string &text, std::string name, std::string path) : _text(text), _name(name), _path(path) {}
 

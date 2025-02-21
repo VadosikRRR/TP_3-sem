@@ -1,3 +1,4 @@
 /new_text_editor_on_c++/build/
-/new_text_editor_on_c++/.vscode
+/new_text_editor_on_c++/.vscode/
+/new_text_editor_on_c++/.files/
 *.out
