@@ -85,15 +85,13 @@ public:
 };
 
 
-// class DeleteFewSymbolsCommand : public Command {
-// private:
-//     int _index;
-//     int _symbols_number;
-//     std::string &_text;
-// public:
-//     DeleteFewSymbolsCommand(std::string &text, int index, int symbols_number);
-//     virtual void Execute();
-// };
+class DeleteFewSymbolsCommand : public Command {
+private:
+    int _symbols_number;
+public:
+    DeleteFewSymbolsCommand(Document &document, int symbols_number);
+    virtual void Execute();
+};
 
 
 // class MoveLeftOnSomeWordsCommand : public Command {

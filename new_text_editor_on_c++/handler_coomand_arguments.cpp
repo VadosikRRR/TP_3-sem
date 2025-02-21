@@ -6,16 +6,17 @@ int AGRUMENT_NUMBER_MOVE = 1;
 int AGRUMENT_NUMBER_PUT = 1;
 int AGRUMENT_NUMBER_INSERT = 2;
 int AGRUMENT_NUMBER_DELETE_SYMBOL = 0;
+int AGRUMENT_NUMBER_DELETE_FEW_SYMBOLS = 1;
 
-HandlerCoomandArguments::~HandlerCoomandArguments() {}
+HandlerCommandArguments::~HandlerCommandArguments() {}
 
-HandlerCoomandArguments::HandlerCoomandArguments(int arg_number) : _arg_number(arg_number) {}
+HandlerCommandArguments::HandlerCommandArguments(int arg_number) : _arg_number(arg_number) {}
 
-int HandlerCoomandArguments::GetArgNumber() {
+int HandlerCommandArguments::GetArgNumber() {
     return _arg_number;
 }
 
-HandlerAddArguments::HandlerAddArguments() : HandlerCoomandArguments(AGRUMENT_NUMBER_ADD) {}
+HandlerAddArguments::HandlerAddArguments() : HandlerCommandArguments(AGRUMENT_NUMBER_ADD) {}
 
 Command * HandlerAddArguments::Execute(Document &document, std::string string_args) {
     if (string_args != "" && string_args.substr(1) != "") {
@@ -25,7 +26,7 @@ Command * HandlerAddArguments::Execute(Document &document, std::string string_ar
     return NULL;
 }
                          
-HandlerMoveArgument::HandlerMoveArgument() : HandlerCoomandArguments(AGRUMENT_NUMBER_MOVE) {}
+HandlerMoveArgument::HandlerMoveArgument() : HandlerCommandArguments(AGRUMENT_NUMBER_MOVE) {}
 
 Command * HandlerMoveArgument::Execute(Document &document, std::string string_args) {
     std::string arg1 = "BAN";
@@ -51,7 +52,7 @@ Command * HandlerMoveArgument::Execute(Document &document, std::string string_ar
     }
 }
 
-HandlerPutArgument::HandlerPutArgument() : HandlerCoomandArguments(AGRUMENT_NUMBER_PUT) {}
+HandlerPutArgument::HandlerPutArgument() : HandlerCommandArguments(AGRUMENT_NUMBER_PUT) {}
 
 Command * HandlerPutArgument::Execute(Document &document, std::string string_args) {
     if (string_args != "" && string_args.substr(1) != "") {
@@ -61,7 +62,7 @@ Command * HandlerPutArgument::Execute(Document &document, std::string string_arg
     return NULL;
 }
 
-HandlerInsertArgument::HandlerInsertArgument() : HandlerCoomandArguments(AGRUMENT_NUMBER_INSERT) {}
+HandlerInsertArgument::HandlerInsertArgument() : HandlerCommandArguments(AGRUMENT_NUMBER_INSERT) {}
 
 Command * HandlerInsertArgument::Execute(Document &document, std::string string_args) {
     std::string arg1 = "BAN";
@@ -87,19 +88,43 @@ Command * HandlerInsertArgument::Execute(Document &document, std::string string_
     }
 }
 
-
-HandlerDeleteSymbolArgument::HandlerDeleteSymbolArgument() : HandlerCoomandArguments(AGRUMENT_NUMBER_DELETE_SYMBOL) {}
+HandlerDeleteSymbolArgument::HandlerDeleteSymbolArgument() : HandlerCommandArguments(AGRUMENT_NUMBER_DELETE_SYMBOL) {}
 
 Command * HandlerDeleteSymbolArgument::Execute(Document &document, std::string string_args) {
-    if (string_args != "") {
-        std::cout << "ARGUMENT ERROR" << std::endl;
-        return NULL;
+    if (string_args == "") {
+        if (document.GetDocumentText() == "") {
+            std::cout << "INCORRECT CASE" << std::endl;
+            return NULL;
+        }
+    
+        return new DeleteSymbolCommand(document);
     }
 
-    if (document.GetCursorPosition() == 0) {
-        std::cout << "INCORRECT CASE" << std::endl;
+    std::string arg1 = "BAN";
+    std::string arg2 = "BAN";
+    std::istringstream iss(string_args);
+    iss >> arg1 >> arg2;
+    try {
+        int number_delete_symbols = std::stoi(arg1);
+        if (arg2 != "BAN") {
+            return NULL;
+        }
+        
+        if (number_delete_symbols <= 0 ||
+            document.GetCursorPosition() < number_delete_symbols) {
+            return NULL;
+        }
+
+        return new DeleteFewSymbolsCommand(document, number_delete_symbols);
+    }
+    catch(const std::invalid_argument& e) {
+        std::cout << "Ты что, ЕБАНУЛСЯ? А НИЧЁ ТОТ ФАКТ, ЧТО ЭТО НЕ МОЖЕТ БЫТЬ ПОЗИЦИЕЙ КУРСОРА";
         return NULL;
     }
-
-    return new DeleteSymbolCommand(document);
 }
+
+// HandlerDeleteFewSymbolsArgument::HandlerDeleteFewSymbolsArgument() : HandlerCommandArguments(AGRUMENT_NUMBER_DELETE_FEW_SYMBOLS) {}
+
+// Command * HandlerDeleteFewSymbolsArgument::Execute(Document &document, std::string string_args) {
+    
+// }

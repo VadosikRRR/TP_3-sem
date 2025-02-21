@@ -10,48 +10,55 @@ extern int AGRUMENT_NUMBER_PUT;
 extern int AGRUMENT_NUMBER_INSERT;
 
 
-class HandlerCoomandArguments {
+class HandlerCommandArguments {
 private:
     int _arg_number;
 protected:
-    HandlerCoomandArguments(int arg_number);
+    HandlerCommandArguments(int arg_number);
 public:
     int GetArgNumber();
-    virtual ~HandlerCoomandArguments();
+    virtual ~HandlerCommandArguments();
     virtual Command * Execute(Document &document, std::string string_args) = 0;
 };
 
 
-class HandlerAddArguments : public HandlerCoomandArguments {
+class HandlerAddArguments : public HandlerCommandArguments {
 public:
     HandlerAddArguments();
     virtual Command * Execute(Document &document, std::string string_args);
 };
 
 
-class HandlerMoveArgument : public HandlerCoomandArguments {
+class HandlerMoveArgument : public HandlerCommandArguments {
 public:
     HandlerMoveArgument();
     virtual Command * Execute(Document &document, std::string string_args);
 };
 
 
-class HandlerPutArgument : public HandlerCoomandArguments {
+class HandlerPutArgument : public HandlerCommandArguments {
 public:
     HandlerPutArgument();
     virtual Command * Execute(Document &document, std::string string_args);
 };
 
 
-class HandlerInsertArgument : public HandlerCoomandArguments {
+class HandlerInsertArgument : public HandlerCommandArguments {
 public:
     HandlerInsertArgument();
     virtual Command * Execute(Document &document, std::string string_args);
 };
 
 
-class HandlerDeleteSymbolArgument : public HandlerCoomandArguments {
+class HandlerDeleteSymbolArgument : public HandlerCommandArguments {
 public:
     HandlerDeleteSymbolArgument();
     virtual Command * Execute(Document &document, std::string string_args);
 };
+
+
+// class HandlerDeleteFewSymbolsArgument : public HandlerCommandArguments {
+// public:
+//     HandlerDeleteFewSymbolsArgument();
+//     virtual Command * Execute(Document &document, std::string string_args);
+// };

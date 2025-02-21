@@ -7,8 +7,8 @@
 class Manager {
 private:
     static Manager *_instance;
-    std::map<std::string, HandlerCoomandArguments *> _commands;
-    // void RegisterCommand(std::string command_name, HandlerCoomandArguments * p_handler);
+    std::map<std::string, HandlerCommandArguments *> _commands;
+    // void RegisterCommand(std::string command_name, HandlerCommandArguments * p_handler);
 protected:
     Manager();
 public:

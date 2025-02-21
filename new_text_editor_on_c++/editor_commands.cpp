@@ -35,13 +35,11 @@ void MoveCommand::Execute() {
 InsertCommand::InsertCommand(Document &document, std::string new_text, int position) : _new_text(new_text), _position(position), Command(document) {}
 
 void InsertCommand::Execute() { //////////////////
-    Command *move = new MoveCommand(_document, _position);
-    move->Execute();
-    delete move;
+    MoveCommand move = MoveCommand(_document, _position);
+    move.Execute();
     
-    Command *put = new PutCommand(_document, _new_text);
-    put->Execute();
-    delete put;
+    PutCommand put = PutCommand(_document, _new_text);
+    put.Execute();
 }
 
 PutCommand::PutCommand(Document &document, std::string new_text) : _new_text(new_text), Command(document) {}
@@ -55,14 +53,26 @@ DeleteSymbolCommand::DeleteSymbolCommand(Document &document) : Command(document)
 
 void DeleteSymbolCommand::Execute() {
     _document.GetDocumentText().erase(_document.GetCursorPosition(), 1);
+    if (_document.GetCursorPosition() == 0) {
+        return;
+    }
+    
     _document.GetCursorPosition()--;
 }
 
-// DeleteFewSymbolsCommand::DeleteFewSymbolsCommand(std::string &text, int index, int symbols_number) : _text(text), _index(index), _symbols_number(symbols_number) {}
+DeleteFewSymbolsCommand::DeleteFewSymbolsCommand(Document &document, int symbols_number) : _symbols_number(symbols_number), Command(document) {}
 
-// void DeleteFewSymbolsCommand::Execute() {
-//     _text.erase(_index - _symbols_number, _symbols_number);
-// }
+void DeleteFewSymbolsCommand::Execute() {
+    if (_symbols_number == 1) {
+        DeleteSymbolCommand command = DeleteSymbolCommand(_document);
+        command.Execute();
+        return;
+    }
+    
+
+    _document.GetDocumentText().erase(_document.GetCursorPosition() - _symbols_number + 1, _symbols_number);
+    _document.GetCursorPosition() -= _symbols_number;
+}
 
 // RemoveCommand::RemoveCommand(std::string &text, int old_index, int start_index, int end_index) : _text(text), _old_index(old_index), _start_index(start_index), _end_index(end_index) {}
 

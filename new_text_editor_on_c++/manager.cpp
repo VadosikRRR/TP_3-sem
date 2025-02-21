@@ -43,7 +43,7 @@ void Manager::StringProcessing(Document &document, std::string command_text) {
     }
 }
 
-// void Manager::RegisterCommand(std::string command_name, HandlerCoomandArguments * p_handler) {
+// void Manager::RegisterCommand(std::string command_name, HandlerCommandArguments * p_handler) {
 
 // }
 
