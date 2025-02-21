@@ -1,4 +1,4 @@
-#include "text_editor.hpp"
+#include "src/text_editor.hpp"
 #include <iostream>
 
 
