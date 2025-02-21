@@ -191,7 +191,7 @@ void FindCommand::Execute() {
     int start_index = _document.GetDocumentText().find(_needed_text);
     while (start_index != std::string::npos && start_index < _document.GetDocumentText().length() - _needed_text.length()) {
         int end_index = start_index + _needed_text.length();
-        _document.GetHigjligjting()[start_index] = end_index;
+        _document.GetHighlighting()[start_index] = end_index;
         start_index = _document.GetDocumentText().find(_needed_text, end_index);
     }
 }
@@ -207,7 +207,7 @@ void ReplaceCommand::Execute() {
     int new_start_index = 0;
     int new_end_index = 0;
     std::map<int, int> new_highlighter;
-    for (auto pair : _document.GetHigjligjting()) {
+    for (auto pair : _document.GetHighlighting()) {
         text += _document.GetDocumentText().substr(old_start_index, pair.first - old_start_index);
         new_start_index += pair.first - old_start_index;
         text += _new_text;
@@ -220,7 +220,7 @@ void ReplaceCommand::Execute() {
     text += _document.GetDocumentText().substr(old_start_index);
     _document.GetCursorPosition() += text.length() - _document.GetDocumentText().length();
     _document.GetDocumentText() = text;
-    _document.GetHigjligjting() = new_highlighter;
+    _document.GetHighlighting() = new_highlighter;
 }
 
 SaveCommand::SaveCommand(Document &document, std::string name) : _name(name), Command(document) {}

@@ -46,7 +46,7 @@ void Manager::StringProcessing(Document &document, std::string command_text) {
     if (it != _commands.end()) {
         Command * p_command = it->second->Execute(document, command_text.substr(command.length()));
         if (!p_command) {
-            std::cout << "Чел, ебать, аргументы проверяй" << std::endl;
+            document.GetErrorMessage() = "Чел, ебать, аргументы проверяй";
             return;
         }
         
@@ -54,6 +54,6 @@ void Manager::StringProcessing(Document &document, std::string command_text) {
         delete p_command;
     } 
     else {
-        std::cout << "Чел, ебать, команды выучи" << std::endl;
+        document.GetErrorMessage() = "Чел, ебать, команды выучи";
     }
 }
