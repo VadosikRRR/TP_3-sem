@@ -133,15 +133,14 @@ public:
 };
 
 
-// class ReplaceCommand : public Command {
-// private:
-//     std::string _old_text;
-//     std::string _new_text;
-//     std::string &_text;
-// public:
-//     ReplaceCommand(std::string &text, std::string old_text, std::string new_text);
-//     virtual void Execute();
-// };
+class ReplaceCommand : public Command {
+private:
+    std::string _old_text;
+    std::string _new_text;
+public:
+    ReplaceCommand(Document &document, std::string old_text, std::string new_text);
+    virtual void Execute();
+};
 
 
 // class SaveCommand : public Command {

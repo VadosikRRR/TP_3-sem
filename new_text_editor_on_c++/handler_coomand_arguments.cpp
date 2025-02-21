@@ -234,3 +234,19 @@ Command * HandlerFindArguments::Execute(Document &document, std::string string_a
 
     return new FindCommand(document, string_args.substr(1));
 }
+
+HandlerReplaceArguments::HandlerReplaceArguments() {}
+
+Command * HandlerReplaceArguments::Execute(Document &document, std::string string_args) {
+    std::string arg1 = "BAN";
+    std::string arg2 = "BAN";
+    std::string arg3 = "BAN";
+    std::istringstream iss(string_args);
+    iss >> arg1 >> arg2 >> arg3;
+
+    if (arg1 == "BAN" || arg2 == "BAN" || arg3 != "BAN") {
+        return NULL;
+    }
+
+    return new ReplaceCommand(document, arg1, arg2);
+}

@@ -194,11 +194,32 @@ void FindCommand::Execute() {
     }
 }
 
-// ReplaceCommand::ReplaceCommand(std::string &text, std::string old_text, std::string new_text) : _text(text), _old_text(old_text), _new_text(new_text) {}
+ReplaceCommand::ReplaceCommand(Document &document, std::string old_text, std::string new_text) : _old_text(old_text), _new_text(new_text), Command(document) {}
 
-// void ReplaceCommand::Execute() {
-//     /////////////////////
-// }
+void ReplaceCommand::Execute() {
+    FindCommand find_old_text = FindCommand(_document, _old_text);
+    find_old_text.Execute();
+
+    std::string text = "";
+    int old_start_index = 0;
+    int new_start_index = 0;
+    int new_end_index = 0;
+    std::map<int, int> new_highlighter;
+    for (auto pair : _document.GetHigjligjting()) {
+        text += _document.GetDocumentText().substr(old_start_index, pair.first - old_start_index);
+        new_start_index += pair.first - old_start_index;
+        text += _new_text;
+        old_start_index = pair.second;
+        new_end_index = new_start_index + _new_text.length();
+        new_highlighter[new_start_index] = new_end_index;
+        new_start_index = new_end_index;
+    }
+    
+    text += _document.GetDocumentText().substr(old_start_index);
+    _document.GetCursorPosition() += text.length() - _document.GetDocumentText().length();
+    _document.GetDocumentText() = text;
+    _document.GetHigjligjting() = new_highlighter;
+}
 
 // SaveCommand::SaveCommand(std::string &text, std::string name, std::string path) : _text(text), _name(name), _path(path) {}
 

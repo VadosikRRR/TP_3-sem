@@ -88,3 +88,10 @@ public:
     HandlerFindArguments();
     virtual Command * Execute(Document &document, std::string string_args);
 };
+
+
+class HandlerReplaceArguments : public HandlerCommandArguments {
+public:
+    HandlerReplaceArguments();
+    virtual Command * Execute(Document &document, std::string string_args);
+};
