@@ -1,4 +1,4 @@
-#include "editor_commands.hpp"
+#include "include/editor_commands.hpp"
 #include <string>
 
 Command::Command(Document &document) : _document(document) {}

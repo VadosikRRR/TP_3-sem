@@ -1,7 +1,7 @@
-#include "text_editor.hpp"
-#include "manager.hpp"
-#include "parser.hpp"
-#include "printer.hpp"
+#include "include/text_editor.hpp"
+#include "include/manager.hpp"
+#include "include/parser.hpp"
+#include "include/printer.hpp"
 
 
 TextEditor * TextEditor::_instance = 0;
