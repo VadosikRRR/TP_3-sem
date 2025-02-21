@@ -1,22 +1,12 @@
 #include "handler_coomand_arguments.hpp"
 #include <sstream>
 
-int AGRUMENT_NUMBER_ADD = 1;
-int AGRUMENT_NUMBER_MOVE = 1;
-int AGRUMENT_NUMBER_PUT = 1;
-int AGRUMENT_NUMBER_INSERT = 2;
-int AGRUMENT_NUMBER_DELETE_SYMBOL = 0;
-int AGRUMENT_NUMBER_DELETE_FEW_SYMBOLS = 1;
 
 HandlerCommandArguments::~HandlerCommandArguments() {}
 
-HandlerCommandArguments::HandlerCommandArguments(int arg_number) : _arg_number(arg_number) {}
+HandlerCommandArguments::HandlerCommandArguments() {}
 
-int HandlerCommandArguments::GetArgNumber() {
-    return _arg_number;
-}
-
-HandlerAddArguments::HandlerAddArguments() : HandlerCommandArguments(AGRUMENT_NUMBER_ADD) {}
+HandlerAddArguments::HandlerAddArguments() {}
 
 Command * HandlerAddArguments::Execute(Document &document, std::string string_args) {
     if (string_args != "" && string_args.substr(1) != "") {
@@ -26,9 +16,9 @@ Command * HandlerAddArguments::Execute(Document &document, std::string string_ar
     return NULL;
 }
                          
-HandlerMoveArgument::HandlerMoveArgument() : HandlerCommandArguments(AGRUMENT_NUMBER_MOVE) {}
+HandlerMoveArguments::HandlerMoveArguments() {}
 
-Command * HandlerMoveArgument::Execute(Document &document, std::string string_args) {
+Command * HandlerMoveArguments::Execute(Document &document, std::string string_args) {
     std::string arg1 = "BAN";
     std::string arg2 = "BAN";
     std::istringstream iss(string_args);
@@ -52,9 +42,9 @@ Command * HandlerMoveArgument::Execute(Document &document, std::string string_ar
     }
 }
 
-HandlerPutArgument::HandlerPutArgument() : HandlerCommandArguments(AGRUMENT_NUMBER_PUT) {}
+HandlerPutArguments::HandlerPutArguments() {}
 
-Command * HandlerPutArgument::Execute(Document &document, std::string string_args) {
+Command * HandlerPutArguments::Execute(Document &document, std::string string_args) {
     if (string_args != "" && string_args.substr(1) != "") {
         return new PutCommand(document, string_args.substr(1));
     }
@@ -62,9 +52,9 @@ Command * HandlerPutArgument::Execute(Document &document, std::string string_arg
     return NULL;
 }
 
-HandlerInsertArgument::HandlerInsertArgument() : HandlerCommandArguments(AGRUMENT_NUMBER_INSERT) {}
+HandlerInsertArguments::HandlerInsertArguments() {}
 
-Command * HandlerInsertArgument::Execute(Document &document, std::string string_args) {
+Command * HandlerInsertArguments::Execute(Document &document, std::string string_args) {
     std::string arg1 = "BAN";
     std::string arg2 = "BAN";
     std::istringstream iss(string_args);
@@ -88,9 +78,9 @@ Command * HandlerInsertArgument::Execute(Document &document, std::string string_
     }
 }
 
-HandlerDeleteSymbolArgument::HandlerDeleteSymbolArgument() : HandlerCommandArguments(AGRUMENT_NUMBER_DELETE_SYMBOL) {}
+HandlerDeleteSymbolArguments::HandlerDeleteSymbolArguments() {}
 
-Command * HandlerDeleteSymbolArgument::Execute(Document &document, std::string string_args) {
+Command * HandlerDeleteSymbolArguments::Execute(Document &document, std::string string_args) {
     if (string_args == "") {
         if (document.GetDocumentText() == "") {
             std::cout << "INCORRECT CASE" << std::endl;
@@ -123,8 +113,124 @@ Command * HandlerDeleteSymbolArgument::Execute(Document &document, std::string s
     }
 }
 
-// HandlerDeleteFewSymbolsArgument::HandlerDeleteFewSymbolsArgument() : HandlerCommandArguments(AGRUMENT_NUMBER_DELETE_FEW_SYMBOLS) {}
+HandlerRemoveArguments::HandlerRemoveArguments() {}
 
-// Command * HandlerDeleteFewSymbolsArgument::Execute(Document &document, std::string string_args) {
+Command * HandlerRemoveArguments::Execute(Document &document, std::string string_args) {
+    std::string arg1 = "BAN";
+    std::string arg2 = "BAN";
+    std::string arg3 = "BAN";
+    std::istringstream iss(string_args);
+    iss >> arg1 >> arg2 >> arg3;
+
+    if (arg1 == "BAN" || arg2 == "BAN" || arg3 != "BAN") {
+        return NULL;
+    }
     
-// }
+    HandlerMoveArguments move_handler = HandlerMoveArguments();
+    Command * move_command = move_handler.Execute(document, arg2);
+    if (!move_command) {
+        return NULL;
+    }
+    delete move_command;
+
+    try {
+        int start_index = std::stoi(arg1);
+        int end_index = std::stoi(arg2);
+        HandlerDeleteSymbolArguments del_handler = HandlerDeleteSymbolArguments();
+        Command * del_command = del_handler.Execute(document, std::to_string(end_index - start_index + 1));
+        if (!del_command) {
+            return NULL;
+        }
+        delete del_command;
+
+        return new RemoveCommand(document, start_index, end_index);
+    }
+    catch(const std::exception& e) {
+        return NULL;
+    }
+}
+
+
+HandlerMoveLeftSomeWordsArguments::HandlerMoveLeftSomeWordsArguments() {}
+
+Command * HandlerMoveLeftSomeWordsArguments::Execute(Document &document, std::string string_args) {
+    std::string arg1 = "BAN";
+    std::string arg2 = "BAN";
+    std::istringstream iss(string_args);
+    iss >> arg1 >> arg2;
+
+    if (arg2 != "BAN") {
+        return NULL;
+    }
+
+    try {
+        int words_number = std::stoi(arg1);
+        
+        if (words_number <= 0) {
+            return NULL;
+        }
+        
+        return new MoveLeftOnSomeWordsCommand(document, words_number);
+    }
+    catch(const std::exception& e) {
+        return NULL;
+    }
+}
+
+
+HandlerMoveRightSomeWordsArguments::HandlerMoveRightSomeWordsArguments() {}
+
+Command * HandlerMoveRightSomeWordsArguments::Execute(Document &document, std::string string_args) {
+    std::string arg1 = "BAN";
+    std::string arg2 = "BAN";
+    std::istringstream iss(string_args);
+    iss >> arg1 >> arg2;
+
+    if (arg2 != "BAN") {
+        return NULL;
+    }
+
+    try {
+        int words_number = std::stoi(arg1);
+        
+        if (words_number <= 0) {
+            return NULL;
+        }
+        
+        return new MoveRightOnSomeWordsCommand(document, words_number);
+    }
+    catch(const std::exception& e)
+    {
+        return NULL;
+    }
+}
+
+HandlerUpCaseArguments::HandlerUpCaseArguments() {}
+
+Command * HandlerUpCaseArguments::Execute(Document &document, std::string string_args) {
+    if (string_args != "" || document.GetDocumentText()[document.GetCursorPosition()] == ' ') {
+        return NULL;
+    }
+
+    return new UpCaseCommand(document);
+}
+
+HandlerLowCaseArguments::HandlerLowCaseArguments() {}
+
+Command * HandlerLowCaseArguments::Execute(Document &document, std::string string_args) {
+    if (string_args != "" || document.GetDocumentText()[document.GetCursorPosition()] == ' ') {
+        return NULL;
+    }
+
+    return new LowCaseCommand(document);
+}
+
+HandlerFindArguments::HandlerFindArguments() {}
+
+Command * HandlerFindArguments::Execute(Document &document, std::string string_args) {
+    if (string_args == "" || string_args.substr(1) == "") {
+        return NULL;
+    }
+
+    return new FindCommand(document, string_args.substr(1));
+}

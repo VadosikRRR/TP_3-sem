@@ -4,19 +4,10 @@
 #include <vector>
 
 
-extern int AGRUMENT_NUMBER_ADD;
-extern int AGRUMENT_NUMBER_MOVE;
-extern int AGRUMENT_NUMBER_PUT;
-extern int AGRUMENT_NUMBER_INSERT;
-
-
 class HandlerCommandArguments {
-private:
-    int _arg_number;
 protected:
-    HandlerCommandArguments(int arg_number);
+    HandlerCommandArguments();
 public:
-    int GetArgNumber();
     virtual ~HandlerCommandArguments();
     virtual Command * Execute(Document &document, std::string string_args) = 0;
 };
@@ -29,36 +20,71 @@ public:
 };
 
 
-class HandlerMoveArgument : public HandlerCommandArguments {
+class HandlerMoveArguments : public HandlerCommandArguments {
 public:
-    HandlerMoveArgument();
+    HandlerMoveArguments();
     virtual Command * Execute(Document &document, std::string string_args);
 };
 
 
-class HandlerPutArgument : public HandlerCommandArguments {
+class HandlerPutArguments : public HandlerCommandArguments {
 public:
-    HandlerPutArgument();
+    HandlerPutArguments();
     virtual Command * Execute(Document &document, std::string string_args);
 };
 
 
-class HandlerInsertArgument : public HandlerCommandArguments {
+class HandlerInsertArguments : public HandlerCommandArguments {
 public:
-    HandlerInsertArgument();
+    HandlerInsertArguments();
     virtual Command * Execute(Document &document, std::string string_args);
 };
 
 
-class HandlerDeleteSymbolArgument : public HandlerCommandArguments {
+class HandlerDeleteSymbolArguments : public HandlerCommandArguments {
 public:
-    HandlerDeleteSymbolArgument();
+    HandlerDeleteSymbolArguments();
     virtual Command * Execute(Document &document, std::string string_args);
 };
 
 
-// class HandlerDeleteFewSymbolsArgument : public HandlerCommandArguments {
-// public:
-//     HandlerDeleteFewSymbolsArgument();
-//     virtual Command * Execute(Document &document, std::string string_args);
-// };
+class HandlerRemoveArguments : public HandlerCommandArguments {
+public:
+    HandlerRemoveArguments();
+    virtual Command * Execute(Document &document, std::string string_args);
+};
+
+
+class HandlerMoveLeftSomeWordsArguments : public HandlerCommandArguments {
+public:
+    HandlerMoveLeftSomeWordsArguments();
+    virtual Command * Execute(Document &document, std::string string_args);
+};
+
+
+class HandlerMoveRightSomeWordsArguments : public HandlerCommandArguments {
+public:
+    HandlerMoveRightSomeWordsArguments();
+    virtual Command * Execute(Document &document, std::string string_args);
+};
+
+
+class HandlerUpCaseArguments : public HandlerCommandArguments {
+public:
+    HandlerUpCaseArguments();
+    virtual Command * Execute(Document &document, std::string string_args);
+};
+
+
+class HandlerLowCaseArguments : public HandlerCommandArguments {
+public:
+    HandlerLowCaseArguments();
+    virtual Command * Execute(Document &document, std::string string_args);
+};
+
+
+class HandlerFindArguments : public HandlerCommandArguments {
+public:
+    HandlerFindArguments();
+    virtual Command * Execute(Document &document, std::string string_args);
+};

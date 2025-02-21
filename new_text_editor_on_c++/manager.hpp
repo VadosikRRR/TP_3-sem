@@ -8,10 +8,10 @@ class Manager {
 private:
     static Manager *_instance;
     std::map<std::string, HandlerCommandArguments *> _commands;
-    // void RegisterCommand(std::string command_name, HandlerCommandArguments * p_handler);
 protected:
     Manager();
 public:
+    ~Manager();
     static Manager * Instance();
     void StringProcessing(Document &document, std::string command_text);
 };

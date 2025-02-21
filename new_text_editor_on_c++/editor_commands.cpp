@@ -1,4 +1,5 @@
 #include "editor_commands.hpp"
+#include <string>
 
 Command::Command(Document &document) : _document(document) {}
 
@@ -34,7 +35,7 @@ void MoveCommand::Execute() {
 
 InsertCommand::InsertCommand(Document &document, std::string new_text, int position) : _new_text(new_text), _position(position), Command(document) {}
 
-void InsertCommand::Execute() { //////////////////
+void InsertCommand::Execute() { 
     MoveCommand move = MoveCommand(_document, _position);
     move.Execute();
     
@@ -74,63 +75,124 @@ void DeleteFewSymbolsCommand::Execute() {
     _document.GetCursorPosition() -= _symbols_number;
 }
 
-// RemoveCommand::RemoveCommand(std::string &text, int old_index, int start_index, int end_index) : _text(text), _old_index(old_index), _start_index(start_index), _end_index(end_index) {}
+RemoveCommand::RemoveCommand(Document &document, int start_index, int end_index) : _start_index(start_index), _end_index(end_index), Command(document) {}
 
-// void RemoveCommand::Execute() {
-//     Command *move = new MoveCommand(_text, _old_index, _start_index);
-//     move->Execute();
-//     delete move;
+void RemoveCommand::Execute() {
+    MoveCommand move = MoveCommand(_document, _end_index);
+    move.Execute();
 
-//     _text.erase(_start_index, _end_index);
-// }
+    DeleteFewSymbolsCommand del_command = DeleteFewSymbolsCommand(_document, _end_index - _start_index + 1);
+    del_command.Execute();
+}
 
-// MoveLeftOnSomeWordsCommand::MoveLeftOnSomeWordsCommand(std::string &text, int index, int words_number) : _text(text), _index(index), _words_number(words_number) {}
+MoveLeftOnSomeWordsCommand::MoveLeftOnSomeWordsCommand(Document &document, int words_number) : _words_number(words_number), Command(document) {}
 
-// void MoveLeftOnSomeWordsCommand::Execute() {
-//     int new_index = find_index_after_some_words(_text, _index, _words_number, true);
-//     Command *move = new MoveCommand(_text, _index, new_index);
-//     move->Execute();
-//     delete move;
-// }//////////////////
+void MoveLeftOnSomeWordsCommand::Execute() { ///////////////////////////////////////////////////////////////
+    int space_cnt = 0;
+    int new_index;
+    for (int i = _document.GetCursorPosition(); i != 0; i--) {
+        if (_document.GetDocumentText()[i] != ' ') {
+            continue;
+        }
+        
+        space_cnt++;
+        if (space_cnt == _words_number) {
+            new_index = i;
+            break;
+        }
+    }
 
-// int find_index_after_some_words(std::string &text, int index, int words_number, bool is_reverse) {
-//     return 0; ///////////////////////////////////////////////////////////////////
-// }
+    if (space_cnt < _words_number) {
+        return;
+    }    
+    
+    MoveCommand move = MoveCommand(_document, new_index);
+    move.Execute();
+}
 
-// MoveRightOnSomeWordsCommand::MoveRightOnSomeWordsCommand(std::string &text, int index, int words_number) : _text(text), _index(index), _words_number(words_number) {}
+MoveRightOnSomeWordsCommand::MoveRightOnSomeWordsCommand(Document &document, int words_number) : _words_number(words_number), Command(document) {}
 
-// void MoveRightOnSomeWordsCommand::Execute() {
-//     int new_index = find_index_after_some_words(_text, _index, _words_number, false);
-//     Command *move = new MoveCommand(_text, _index, new_index);
-//     move->Execute();
-//     delete move;
-// }/////////////////
+void MoveRightOnSomeWordsCommand::Execute() { ///////////////////////////////////////////////////////////////
+    int space_cnt = 0;
+    int new_index;
+    for (int i = _document.GetCursorPosition(); _document.GetDocumentText()[i] != '\0'; i++) {
+        if (_document.GetDocumentText()[i] != ' ') {
+            continue;
+        }
+        
+        space_cnt++;
+        if (space_cnt == _words_number) {
+            new_index = i;
+            break;
+        }
+    }
 
-// UpCaseCommand::UpCaseCommand(std::string &text, int index) : _text(text), _index(index) {}
+    if (space_cnt < _words_number) {
+        return;
+    }
+    
+    MoveCommand move = MoveCommand(_document, new_index);
+    move.Execute();
+}
 
-// void UpCaseCommand::Execute() {
-//     int start_index = find_index_after_some_words(_text, _index, 1, true);
-//     int end_index = find_index_after_some_words(_text, _index, 1, false);
-//     to_upper_str(_text, start_index, end_index);
-// }
+UpCaseCommand::UpCaseCommand(Document &document) : Command(document) {}
 
-// void to_upper_str(std::string &text, int start_index, int end_index) {} ////////////////////////////////////////////////
+void UpCaseCommand::Execute() {
+    int start_index = 0;
+    int end_index = _document.GetDocumentText().length() - 1;
+    for (int i = _document.GetCursorPosition(); i != 0; i--) {
+        if (_document.GetDocumentText()[i] == ' ' && i < end_index) {
+            start_index = i + 1;
+            break;
+        }
+    }
 
-// LowCaseCommand::LowCaseCommand(std::string &text, int index) : _text(text), _index(index) {}
+    for (int i = _document.GetCursorPosition(); _document.GetDocumentText()[i] != '\0'; i++) {
+        if (_document.GetDocumentText()[i] == ' ' && i >= 1) {
+            end_index = i - 1;
+            break;
+        }
+    }
 
-// void LowCaseCommand::Execute() {
-//     int start_index = find_index_after_some_words(_text, _index, 1, true);
-//     int end_index = find_index_after_some_words(_text, _index, 1, false);
-//     to_upper_str(_text, start_index, end_index);
-// }
+    for (int i = start_index; i <= end_index; i++){
+        _document.GetDocumentText()[i] = std::toupper(_document.GetDocumentText()[i]);
+    }
+}
 
-// void to_low_str(std::string &text, int start_index, int end_index) {} //////////////////////////////////////////////////
+LowCaseCommand::LowCaseCommand(Document &document) : Command(document) {}
 
-// FindCommand::FindCommand(std::string &text, std::string needed_text) : _text(text), _needed_text(needed_text) {}
+void LowCaseCommand::Execute() {
+    int start_index = 0;
+    int end_index = _document.GetDocumentText().length() - 1;
+    for (int i = _document.GetCursorPosition(); i != 0; i--) {
+        if (_document.GetDocumentText()[i] == ' ' && i < end_index) {
+            start_index = i + 1;
+            break;
+        }
+    }
 
-// void FindCommand::Execute() {
-//     /////////////////////
-// }
+    for (int i = _document.GetCursorPosition(); _document.GetDocumentText()[i] != '\0'; i++) {
+        if (_document.GetDocumentText()[i] == ' ' && i >= 1) {
+            end_index = i - 1;
+            break;
+        }
+    }
+
+    for (int i = start_index; i <= end_index; i++){
+        _document.GetDocumentText()[i] = std::tolower(_document.GetDocumentText()[i]);
+    }
+}
+
+FindCommand::FindCommand(Document &document, std::string needed_text) : _needed_text(needed_text), Command(document) {}
+
+void FindCommand::Execute() {
+    int start_index = _document.GetDocumentText().find(_needed_text);
+    while (start_index != std::string::npos && start_index < _document.GetDocumentText().length() - _needed_text.length()) {
+        int end_index = start_index + _needed_text.length();
+        _document.GetHigjligjting()[start_index] = end_index;
+        start_index = _document.GetDocumentText().find(_needed_text, end_index);
+    }
+}
 
 // ReplaceCommand::ReplaceCommand(std::string &text, std::string old_text, std::string new_text) : _text(text), _old_text(old_text), _new_text(new_text) {}
 

@@ -11,3 +11,7 @@ std::string & Document::GetDocumentText() {
 int & Document::GetCursorPosition() {
     return _cursor_position;
 }
+
+std::map<int, int> & Document::GetHigjligjting() {
+    return _highlighting;
+}
