@@ -238,8 +238,17 @@ void SaveCommand::Execute() {
     out_file.close();
 }
 
-// LoadCommand::LoadCommand(std::string &text, std::string name, std::string path) : _text(text), _name(name), _path(path) {}
+LoadCommand::LoadCommand(Document &document, std::string name) : _name(name), Command(document) {}
 
-// void LoadCommand::Execute() {
-//     /////////////////////////////////////
-// }
+void LoadCommand::Execute() {
+    std::string path = PATH_TO_FILES + _name + ".txt";
+    std::ifstream in_file(path);
+    if (!in_file) {
+        std::cerr << "Ошибка: файл не найден по пути: " << path << std::endl;
+        return;
+    }
+
+    // in_file >> _document.GetDocumentText();
+    std::getline(in_file, _document.GetDocumentText());
+    _document.GetCursorPosition() = 0;
+};

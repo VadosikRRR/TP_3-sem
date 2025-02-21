@@ -21,6 +21,7 @@ Manager::Manager() {
     _commands[FIND] = new HandlerFindArguments();
     _commands["replace"] = new HandlerReplaceArguments();
     _commands[SAVE] = new HandlerSaveArguments();
+    _commands[LOAD] = new HandlerLoadArguments();
 }
 
 Manager::~Manager() {

@@ -152,12 +152,10 @@ public:
 };
 
 
-// class LoadCommand : public Command {
-// private:
-//     std::string _name;
-//     std::string _path;
-//     std::string &_text;
-// public:
-//     LoadCommand(std::string &text, std::string name, std::string path);
-//     virtual void Execute();
-// };
+class LoadCommand : public Command {
+private:
+    std::string _name;
+public:
+    LoadCommand(Document &document, std::string name);
+    virtual void Execute();
+};

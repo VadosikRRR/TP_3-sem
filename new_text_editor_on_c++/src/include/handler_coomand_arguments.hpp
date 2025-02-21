@@ -102,3 +102,10 @@ public:
     HandlerSaveArguments();
     virtual Command * Execute(Document &document, std::string string_args);
 };
+
+
+class HandlerLoadArguments : public HandlerCommandArguments {
+public:
+    HandlerLoadArguments();
+    virtual Command * Execute(Document &document, std::string string_args);
+};

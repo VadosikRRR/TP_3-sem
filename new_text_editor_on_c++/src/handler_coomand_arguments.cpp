@@ -261,3 +261,13 @@ Command * HandlerSaveArguments::Execute(Document &document, std::string string_a
 
     return new SaveCommand(document, string_args.substr(1));
 }
+
+HandlerLoadArguments::HandlerLoadArguments() {}
+
+Command * HandlerLoadArguments::Execute(Document &document, std::string string_args) {
+    if (string_args == "" || string_args.substr(1) == "") {
+        return NULL;
+    }
+
+    return new LoadCommand(document, string_args.substr(1));
+}
