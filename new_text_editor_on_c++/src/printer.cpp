@@ -1,4 +1,5 @@
 #include "include/printer.hpp"
+#include "include/constant.hpp"
 #include <iostream>
 #include <vector>
 
@@ -40,7 +41,7 @@ void Printer::Print(Document &document) {
     }
 
     for (int ind1 = 0; ind1 < _height; ind1++) {
-        std::cout << '#';
+        std::cout << BOUNDARY_SYMBOL;
         for (int ind2 = 0; ind2 < _width; ind2++) {
             int index = ind1 * _width + ind2;
             if (index >= text.length()) {
@@ -49,23 +50,27 @@ void Printer::Print(Document &document) {
             }
             
             if (keys_cnt < keys.size() && index == keys[keys_cnt]) { 
-                std::cout << "\033[32m";
+                std::cout << GREEN_COLOR;
             }
 
             if (keys_cnt < keys.size() && index == highlighter[keys[keys_cnt]]) {
                 keys_cnt++;
-                std::cout << "\033[0m";
+                std::cout << STANDART_COLOR;
             }
             
             if (index == cursor_position) {
-                std::cout << "\033[31m" << text[index] << "\033[0m";
+                std::cout << RED_COLOR << text[index] << STANDART_COLOR;
+                if (index >= keys[keys_cnt] && index < highlighter[keys[keys_cnt]]) {
+                    std::cout << GREEN_COLOR;
+                }
+                
                 continue;
             }
             
             std::cout << text[index];
         }
 
-        std::cout << '#' << std::endl;
+        std::cout << BOUNDARY_SYMBOL << std::endl;
     }
 
     hash_line(_width + 2);

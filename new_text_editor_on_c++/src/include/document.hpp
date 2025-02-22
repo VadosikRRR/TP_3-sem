@@ -1,9 +1,8 @@
 #pragma once
+#include "constant.hpp"
 #include <iostream>
 #include <map>
 
-
-#define PATH_TO_FILES "../files/"
 
 class Document {
 private:

@@ -1,9 +1,7 @@
 #include "include/manager.hpp"
+#include "include/constant.hpp"
 #include <sstream>
 
-
-std::string STANDART_ERROR = "BAN";
-std::string ARGUMENT_NUMBER_ERROR = "number of arguments is less than this command is needed";
 
 Manager * Manager::_instance = 0;
 
@@ -46,7 +44,7 @@ void Manager::StringProcessing(Document &document, std::string command_text) {
     if (it != _commands.end()) {
         Command * p_command = it->second->Execute(document, command_text.substr(command.length()));
         if (!p_command) {
-            document.GetErrorMessage() = "Чел, ебать, аргументы проверяй";
+            document.GetErrorMessage() = ARGUMENT_ERROR;
             return;
         }
         
@@ -54,6 +52,6 @@ void Manager::StringProcessing(Document &document, std::string command_text) {
         delete p_command;
     } 
     else {
-        document.GetErrorMessage() = "Чел, ебать, команды выучи";
+        document.GetErrorMessage() = COMMAND_ERROR;
     }
 }
