@@ -1,4 +1,5 @@
 #include "include/parser.hpp"
+#include "include/constans.hpp"
 
 
 Parser * Parser::_instance = 0;
@@ -15,10 +16,10 @@ Parser::Parser() {}
 
 std::string Parser::Parse() {
     std::string input;
-    std::cout << "> ";
+    std::cout << START_OUTPUT;
     if (std::getline(std::cin, input)) {
         return input;
     }
     
-    return "Ban";
+    return INCORRECT_OUTPUT;
 }

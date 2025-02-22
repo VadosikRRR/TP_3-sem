@@ -2,6 +2,7 @@
 #include "include/manager.hpp"
 #include "include/parser.hpp"
 #include "include/printer.hpp"
+#include "include/constans.hpp"
 
 
 TextEditor * TextEditor::_instance = 0;
@@ -22,7 +23,7 @@ int & TextEditor::GetWidth() {
     return _width;
 }
 
-TextEditor::TextEditor() : _height(25), _width(80), _document(Document("", "NO NAME")) {}
+TextEditor::TextEditor() : _height(25), _width(80), _document(Document("", START_DOCUMENT_NAME)) {}
 
 void TextEditor::Launch() {
     Parser * p_parser = Parser::Instance();

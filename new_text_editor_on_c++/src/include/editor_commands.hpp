@@ -4,21 +4,6 @@
 #include <bits/stdc++.h>
 
 
-extern std::string ADD;
-extern std::string MOVE;
-extern std::string INSERT;
-extern std::string PUT;
-extern std::string REMOVE;
-extern std::string DEL;
-extern std::string MOVELW;
-extern std::string MOVERW;
-extern std::string UPCASE;
-extern std::string LOWCASE;
-extern std::string PEPLACE;
-extern std::string FIND;
-extern std::string SAVE;
-extern std::string LOAD;
-
 class Command {
 protected:
     Document &_document;

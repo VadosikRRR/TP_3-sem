@@ -9,20 +9,6 @@ Command::~Command() {}
 
 AddCommand::AddCommand(Document &document, std::string new_text) : _new_text(new_text), Command(document) {}
 
-std::string ADD = "add";
-std::string MOVE = "move";
-std::string INSERT = "insert";
-std::string PUT = "put";
-std::string REMOVE = "remove";
-std::string DEL = "del";
-std::string MOVELW = "movelw";
-std::string MOVERW = "moverw";
-std::string UPCASE = "upcase";
-std::string LOWCASE = "lowcase";
-std::string REPLACE = "replace";
-std::string FIND = "find";
-std::string SAVE = "save";
-std::string LOAD = "load";
 
 void AddCommand::Execute() {
     _document.GetDocumentText().append(_new_text);
@@ -226,11 +212,11 @@ void ReplaceCommand::Execute() {
 SaveCommand::SaveCommand(Document &document, std::string name) : _name(name), Command(document) {}
 
 void SaveCommand::Execute() {
-    std::string path = PATH_TO_FILES + _name + ".txt";
+    std::string path = PATH_TO_FILES + _name + DOCUMENT_EXTENSION;
     std::ofstream out_file(path);
 
     if (!out_file) {
-        std::cerr << "Ошибка открытия файла: " << path << std::endl;
+        _document.GetErrorMessage() = FILE_ACCESS_ERROR;
         return;
     }
 
@@ -241,10 +227,10 @@ void SaveCommand::Execute() {
 LoadCommand::LoadCommand(Document &document, std::string name) : _name(name), Command(document) {}
 
 void LoadCommand::Execute() {
-    std::string path = PATH_TO_FILES + _name + ".txt";
+    std::string path = PATH_TO_FILES + _name + DOCUMENT_EXTENSION;
     std::ifstream in_file(path);
     if (!in_file) {
-        std::cerr << "Ошибка: файл не найден по пути: " << path << std::endl;
+        std::cerr << FILE_ACCESS_ERROR << path << std::endl;
         return;
     }
 

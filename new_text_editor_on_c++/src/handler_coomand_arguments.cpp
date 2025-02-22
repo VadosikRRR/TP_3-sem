@@ -19,25 +19,23 @@ Command * HandlerAddArguments::Execute(Document &document, std::string string_ar
 HandlerMoveArguments::HandlerMoveArguments() {}
 
 Command * HandlerMoveArguments::Execute(Document &document, std::string string_args) {
-    std::string arg1 = "BAN";
-    std::string arg2 = "BAN";
+    std::string arg1 = ARGUMENT_START_VALUE;
+    std::string arg2 = ARGUMENT_START_VALUE;
     std::istringstream iss(string_args);
     iss >> arg1 >> arg2;
     try {
         int new_cursor_position = std::stoi(arg1);
-        if (arg2 != "BAN") {
+        if (arg2 != ARGUMENT_START_VALUE) {
             return NULL;
         }
         
         if (new_cursor_position < 0 || document.GetDocumentText().length() <= new_cursor_position) {
-            std::cout << "ARGUMENT ERROR" << std::endl;
             return NULL;
         }
 
         return new MoveCommand(document, new_cursor_position);
     }
     catch(const std::invalid_argument& e) {
-        std::cout << "Ты что, ЕБАНУЛСЯ? А НИЧЁ ТОТ ФАКТ, ЧТО ЭТО НЕ МОЖЕТ БЫТЬ ПОЗИЦИЕЙ КУРСОРА";
         return NULL;
     }
 }
@@ -55,15 +53,14 @@ Command * HandlerPutArguments::Execute(Document &document, std::string string_ar
 HandlerInsertArguments::HandlerInsertArguments() {}
 
 Command * HandlerInsertArguments::Execute(Document &document, std::string string_args) {
-    std::string arg1 = "BAN";
-    std::string arg2 = "BAN";
+    std::string arg1 = ARGUMENT_START_VALUE;
+    std::string arg2 = ARGUMENT_START_VALUE;
     std::istringstream iss(string_args);
     iss >> arg1;
     try {
         int new_cursor_position = std::stoi(arg1);
         if (string_args.substr(arg1.length()) != "" && string_args.substr(arg1.length() + 1) != "") {
             if (new_cursor_position < 0 || document.GetDocumentText().length() <= new_cursor_position) {
-                std::cout << "ARGUMENT ERROR" << std::endl;
                 return NULL;
             }
 
@@ -73,7 +70,6 @@ Command * HandlerInsertArguments::Execute(Document &document, std::string string
         return NULL;
     }
     catch(const std::invalid_argument& e) {
-            std::cout << "Ты что, ЕБАНУЛСЯ? А НИЧЁ ТОТ ФАКТ, ЧТО ЭТО НЕ МОЖЕТ БЫТЬ ПОЗИЦИЕЙ КУРСОРА";
             return NULL;
     }
 }
@@ -83,20 +79,19 @@ HandlerDeleteSymbolArguments::HandlerDeleteSymbolArguments() {}
 Command * HandlerDeleteSymbolArguments::Execute(Document &document, std::string string_args) {
     if (string_args == "") {
         if (document.GetDocumentText() == "") {
-            std::cout << "INCORRECT CASE" << std::endl;
             return NULL;
         }
     
         return new DeleteSymbolCommand(document);
     }
 
-    std::string arg1 = "BAN";
-    std::string arg2 = "BAN";
+    std::string arg1 = ARGUMENT_START_VALUE;
+    std::string arg2 = ARGUMENT_START_VALUE;
     std::istringstream iss(string_args);
     iss >> arg1 >> arg2;
     try {
         int number_delete_symbols = std::stoi(arg1);
-        if (arg2 != "BAN") {
+        if (arg2 != ARGUMENT_START_VALUE) {
             return NULL;
         }
         
@@ -108,7 +103,6 @@ Command * HandlerDeleteSymbolArguments::Execute(Document &document, std::string 
         return new DeleteFewSymbolsCommand(document, number_delete_symbols);
     }
     catch(const std::invalid_argument& e) {
-        std::cout << "Ты что, ЕБАНУЛСЯ? А НИЧЁ ТОТ ФАКТ, ЧТО ЭТО НЕ МОЖЕТ БЫТЬ ПОЗИЦИЕЙ КУРСОРА";
         return NULL;
     }
 }
@@ -116,13 +110,13 @@ Command * HandlerDeleteSymbolArguments::Execute(Document &document, std::string 
 HandlerRemoveArguments::HandlerRemoveArguments() {}
 
 Command * HandlerRemoveArguments::Execute(Document &document, std::string string_args) {
-    std::string arg1 = "BAN";
-    std::string arg2 = "BAN";
-    std::string arg3 = "BAN";
+    std::string arg1 = ARGUMENT_START_VALUE;
+    std::string arg2 = ARGUMENT_START_VALUE;
+    std::string arg3 = ARGUMENT_START_VALUE;
     std::istringstream iss(string_args);
     iss >> arg1 >> arg2 >> arg3;
 
-    if (arg1 == "BAN" || arg2 == "BAN" || arg3 != "BAN") {
+    if (arg1 == ARGUMENT_START_VALUE || arg2 == ARGUMENT_START_VALUE || arg3 != ARGUMENT_START_VALUE) {
         return NULL;
     }
     
@@ -154,12 +148,12 @@ Command * HandlerRemoveArguments::Execute(Document &document, std::string string
 HandlerMoveLeftSomeWordsArguments::HandlerMoveLeftSomeWordsArguments() {}
 
 Command * HandlerMoveLeftSomeWordsArguments::Execute(Document &document, std::string string_args) {
-    std::string arg1 = "BAN";
-    std::string arg2 = "BAN";
+    std::string arg1 = ARGUMENT_START_VALUE;
+    std::string arg2 = ARGUMENT_START_VALUE;
     std::istringstream iss(string_args);
     iss >> arg1 >> arg2;
 
-    if (arg2 != "BAN") {
+    if (arg2 != ARGUMENT_START_VALUE) {
         return NULL;
     }
 
@@ -181,12 +175,12 @@ Command * HandlerMoveLeftSomeWordsArguments::Execute(Document &document, std::st
 HandlerMoveRightSomeWordsArguments::HandlerMoveRightSomeWordsArguments() {}
 
 Command * HandlerMoveRightSomeWordsArguments::Execute(Document &document, std::string string_args) {
-    std::string arg1 = "BAN";
-    std::string arg2 = "BAN";
+    std::string arg1 = ARGUMENT_START_VALUE;
+    std::string arg2 = ARGUMENT_START_VALUE;
     std::istringstream iss(string_args);
     iss >> arg1 >> arg2;
 
-    if (arg2 != "BAN") {
+    if (arg2 != ARGUMENT_START_VALUE) {
         return NULL;
     }
 
@@ -238,13 +232,13 @@ Command * HandlerFindArguments::Execute(Document &document, std::string string_a
 HandlerReplaceArguments::HandlerReplaceArguments() {}
 
 Command * HandlerReplaceArguments::Execute(Document &document, std::string string_args) {
-    std::string arg1 = "BAN";
-    std::string arg2 = "BAN";
-    std::string arg3 = "BAN";
+    std::string arg1 = ARGUMENT_START_VALUE;
+    std::string arg2 = ARGUMENT_START_VALUE;
+    std::string arg3 = ARGUMENT_START_VALUE;
     std::istringstream iss(string_args);
     iss >> arg1 >> arg2 >> arg3;
 
-    if (arg1 == "BAN" || arg2 == "BAN" || arg3 != "BAN") {
+    if (arg1 == ARGUMENT_START_VALUE || arg2 == ARGUMENT_START_VALUE || arg3 != ARGUMENT_START_VALUE) {
         return NULL;
     }
 

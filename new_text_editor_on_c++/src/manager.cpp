@@ -2,9 +2,6 @@
 #include <sstream>
 
 
-std::string STANDART_ERROR = "BAN";
-std::string ARGUMENT_NUMBER_ERROR = "number of arguments is less than this command is needed";
-
 Manager * Manager::_instance = 0;
 
 Manager::Manager() {
@@ -19,7 +16,7 @@ Manager::Manager() {
     _commands[UPCASE] = new HandlerUpCaseArguments();
     _commands[LOWCASE] = new HandlerLowCaseArguments();
     _commands[FIND] = new HandlerFindArguments();
-    _commands["replace"] = new HandlerReplaceArguments();
+    _commands[REPLACE] = new HandlerReplaceArguments();
     _commands[SAVE] = new HandlerSaveArguments();
     _commands[LOAD] = new HandlerLoadArguments();
 }
@@ -46,7 +43,7 @@ void Manager::StringProcessing(Document &document, std::string command_text) {
     if (it != _commands.end()) {
         Command * p_command = it->second->Execute(document, command_text.substr(command.length()));
         if (!p_command) {
-            document.GetErrorMessage() = "Чел, ебать, аргументы проверяй";
+            document.GetErrorMessage() = ARGUMENT_ERROR;
             return;
         }
         
@@ -54,6 +51,6 @@ void Manager::StringProcessing(Document &document, std::string command_text) {
         delete p_command;
     } 
     else {
-        document.GetErrorMessage() = "Чел, ебать, команды выучи";
+        document.GetErrorMessage() = COMMAND_ERROR;
     }
 }
