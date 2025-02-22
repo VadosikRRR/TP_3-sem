@@ -17,7 +17,7 @@ Manager::Manager() {
     _commands[UPCASE] = new HandlerUpCaseArguments();
     _commands[LOWCASE] = new HandlerLowCaseArguments();
     _commands[FIND] = new HandlerFindArguments();
-    _commands["replace"] = new HandlerReplaceArguments();
+    _commands[REPLACE] = new HandlerReplaceArguments();
     _commands[SAVE] = new HandlerSaveArguments();
     _commands[LOAD] = new HandlerLoadArguments();
 }

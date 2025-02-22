@@ -162,12 +162,12 @@ void Printer::Print(Document &document) {
 
 void hash_line(int hash_symbols_number) {
     for (int i = 0; i < hash_symbols_number; i++) {
-        std::cout << '#';
+        std::cout << BOUNDARY_SYMBOL;
     }
     
     std::cout << std::endl;
 }
 
 void clear_console() {
-    std::cout << "\033[2J\033[1;1H";
+    std::cout << EMPTY_CONSOLE;
 }
