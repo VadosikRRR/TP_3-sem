@@ -60,6 +60,9 @@ void Printer::Print(Document &document) {
             
             if (index == cursor_position) {
                 std::cout << RED_COLOR << text[index] << STANDART_COLOR;
+                if (keys_cnt < keys.size() && index >= keys[keys_cnt] && index < highlighter[keys[keys_cnt]]) {
+                    std::cout << GREEN_COLOR;
+                }
                 continue;
             }
             
