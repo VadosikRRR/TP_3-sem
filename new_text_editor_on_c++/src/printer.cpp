@@ -1,5 +1,5 @@
 #include "include/printer.hpp"
-#include "include/constans.hpp"
+#include "include/constants.hpp"
 #include <iostream>
 #include <vector>
 

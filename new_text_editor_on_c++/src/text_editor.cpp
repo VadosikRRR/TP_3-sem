@@ -2,7 +2,7 @@
 #include "include/manager.hpp"
 #include "include/parser.hpp"
 #include "include/printer.hpp"
-#include "include/constans.hpp"
+#include "include/constants.hpp"
 
 
 TextEditor * TextEditor::_instance = 0;
