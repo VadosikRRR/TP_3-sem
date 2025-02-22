@@ -1,4 +1,5 @@
 #include "include/editor_commands.hpp"
+#include "include/constans.hpp"
 #include <string>
 #include <fstream>
 
