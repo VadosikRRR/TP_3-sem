@@ -1,5 +1,6 @@
 #include "include/windows_manager.hpp"
 #include "include/parser.hpp"
+#include <sstream>
 
 
 std::unique_ptr<WindowsManager> WindowsManager::_instance = nullptr;
@@ -23,11 +24,20 @@ void WindowsManager::Launch() {
             break;
         }
         
-        // StringProcessing(input_text);
+        StringProcessing(input_text);
     }
 }
 
 
-// void WindowsManager::StringProcessing(std::string command_text) {
-
-// }
+void WindowsManager::StringProcessing(std::string command_text) {
+    std::istringstream iss(command_text);
+    std::string command;
+    iss >> command;
+    auto it = _commands.find(command);
+    if (it != _commands.end()) {
+        it->second->Execute(_windows, command_text.substr(command.length()));
+    } 
+    else {
+        std::cout << "Command is not found" << std::endl;
+    }
+}
