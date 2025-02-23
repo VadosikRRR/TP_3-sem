@@ -5,7 +5,7 @@
 
 Manager * Manager::_instance = 0;
 
-Manager::Manager() {
+Manager::Manager() { // юнит поитер
     _commands[ADD] = new HandlerAddArguments();
     _commands[MOVE] = new HandlerMoveArguments();
     _commands[PUT] = new HandlerPutArguments();
