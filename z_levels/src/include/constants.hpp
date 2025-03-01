@@ -52,3 +52,4 @@
 
 #define ARGUMENT_ERROR "Argument error"
 #define EMPTY_WINDOWS_ERROR "Window manager does not have windows"
+#define SIZE_ERROR "Size error"

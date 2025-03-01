@@ -16,7 +16,7 @@ WindowsManager & WindowsManager::Instance() {
     return *_instance;
 }
 
-WindowsManager::WindowsManager() : _message("") {
+WindowsManager::WindowsManager() : _main_width(-1), _main_height(-1), _message("") {
     _commands[ADD] = std::make_shared<HandlerAddArguments>(HandlerAddArguments());
     _commands[LIST] = std::make_shared<HandlerListArguments>(HandlerListArguments());
     _commands[MOVE] = std::make_shared<HandlerMoveArguments>(HandlerMoveArguments());
@@ -29,12 +29,15 @@ WindowsManager::WindowsManager() : _message("") {
 }
 
 void WindowsManager::Launch() {
-    // std::cout << EMPTY_CONSOLE;
-    // std::cout << BLACK_BACKGROUND;
+    if (_main_height == -1 || _main_width == -1) {
+        std::cout << SIZE_ERROR << std::endl;
+        return;
+    }
+    
     Parser & parser = Parser::Instance();
     Renderer & renderer = Renderer::Instance();
-    renderer.SetMainWidth(60);
-    renderer.SetMainHeight(30);
+    renderer.SetMainWidth(_main_width);
+    renderer.SetMainHeight(_main_height);
     std::string input_text;
     system("clear");
     while (true) {
@@ -50,7 +53,6 @@ void WindowsManager::Launch() {
     }
 }
 
-
 void WindowsManager::StringProcessing(std::string command_text) {
     std::istringstream iss(command_text);
     std::string command;
@@ -63,5 +65,17 @@ void WindowsManager::StringProcessing(std::string command_text) {
     } 
     else {
         _message = "Command is not found";
+    }
+}
+
+void WindowsManager::SetWidth(int new_width) {
+    if (new_width > 0) {
+        _main_width = new_width;
+    }
+}
+
+void WindowsManager::Setheight(int new_height) {
+    if (new_height > 0) {
+        _main_height = new_height;
     }
 }

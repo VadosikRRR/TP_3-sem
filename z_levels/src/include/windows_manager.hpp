@@ -7,6 +7,8 @@
 
 class WindowsManager {
 private:
+    int _main_width;
+    int _main_height;
     std::string _message;
     static std::shared_ptr<WindowsManager> _instance;
     std::list<Window> _windows;
@@ -15,6 +17,8 @@ private:
 protected:
     WindowsManager();
 public:
+    void SetWidth(int new_width);
+    void Setheight(int new_height);
     static WindowsManager & Instance();
     void Launch();
 };
