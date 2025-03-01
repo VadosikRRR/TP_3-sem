@@ -25,6 +25,8 @@
 #define DEL "del"
 #define CHANGE_COL "change_col"
 #define CHANGE_BORDER_COL "change_border_col"
+#define OPEN "open"
+#define CLOSE "close"
 
 // background colors
 #define BLACK_BACKGROUND "\e[40m"

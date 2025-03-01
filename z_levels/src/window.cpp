@@ -67,11 +67,11 @@ std::string Window::GetBorderColor() {
 
 std::string Window::GetInfo() {
     std::string text = "";
-    text += "ID: " + std::string(_id + "; ");
-    text += "x: " + std::string(_coordinate._x + ", ");
-    text += "y: " + std::string(_coordinate._y + "; ");
-    text += "width: " + std::string(_width + ", ");
-    text += "height: " + std::string(_height + ";\n");
+    text += "ID: " + std::to_string(_id) + "; ";
+    text += "x: " + std::to_string(_coordinate._x) + ", ";
+    text += "y: " + std::to_string(_coordinate._y) + "; ";
+    text += "width: " + std::to_string(_width) + ", ";
+    text += "height: " + std::to_string(_height) + ";\n";
     return text;
 }
 
@@ -97,4 +97,12 @@ void Window::ChangeColor(std::string new_color) {
 
 void Window::ChangeBorderColor(std::string new_border_color) {
     _border_color = new_border_color;
+}
+
+void Window::Open() {
+    _is_open = true;
+}
+
+void Window::Close() {
+    _is_open = false;
 }

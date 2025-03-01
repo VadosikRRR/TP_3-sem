@@ -63,3 +63,17 @@ public:
     HandlerChangeBorderColorArguments();
     virtual void Execute(std::list<Window> &windows, std::string string_args);
 };
+
+
+class HandlerOpenArguments : public HandlerCommandArguments {
+public:
+    HandlerOpenArguments();
+    virtual void Execute(std::list<Window> &windows, std::string string_args);
+};
+
+
+class HandlerCloseArguments : public HandlerCommandArguments {
+public:
+    HandlerCloseArguments();
+    virtual void Execute(std::list<Window> &windows, std::string string_args);
+};

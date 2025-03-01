@@ -30,7 +30,7 @@ void Renderer::Drow(std::list<Window> &windows, std::string message) {
         for (int x = 0; x != _main_width; x++) {
             std::cout << BLACK_BACKGROUND;
             for (Window &window : windows) {
-                if (!window.BelongWindowPoint(Point(x, y))) {
+                if (!window.GetIsOpen() || !window.BelongWindowPoint(Point(x, y))) {
                     continue;
                 }
                 

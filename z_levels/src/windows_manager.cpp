@@ -24,6 +24,8 @@ WindowsManager::WindowsManager() : _message("") {
     _commands[DEL] = std::make_shared<HandlerDelArguments>(HandlerDelArguments());
     _commands[CHANGE_BORDER_COL] = std::make_shared<HandlerChangeBorderColorArguments>(HandlerChangeBorderColorArguments());
     _commands[CHANGE_COL] = std::make_shared<HandlerChangeColorArguments>(HandlerChangeColorArguments());
+    _commands[OPEN] = std::make_shared<HandlerOpenArguments>(HandlerOpenArguments());
+    _commands[CLOSE] = std::make_shared<HandlerCloseArguments>(HandlerCloseArguments());
 }
 
 void WindowsManager::Launch() {
@@ -32,7 +34,7 @@ void WindowsManager::Launch() {
     Parser & parser = Parser::Instance();
     Renderer & renderer = Renderer::Instance();
     renderer.SetMainWidth(60);
-    renderer.SetMainHeight(60);
+    renderer.SetMainHeight(30);
     std::string input_text;
     system("clear");
     while (true) {

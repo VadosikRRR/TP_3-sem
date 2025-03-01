@@ -252,3 +252,88 @@ void HandlerChangeBorderColorArguments::Execute(std::list<Window> &windows, std:
         _message = "BAD ARGUMENT";
     }
 }
+
+HandlerOpenArguments::HandlerOpenArguments() {}
+
+void HandlerOpenArguments::Execute(std::list<Window> &windows, std::string string_args) {
+    if (windows.empty()) {
+        _message = "Window manager does not have a window";
+        return;
+    }
+
+    std::string arg1 = ARGUMENT_START_VALUE;
+    std::string arg2 = ARGUMENT_START_VALUE;
+    std::istringstream iss(string_args);
+    iss >> arg1 >> arg2;
+    try {
+        int id = std::stoi(arg1);
+
+        if (arg2 != ARGUMENT_START_VALUE) {
+            _message = "BAD ARGUMENT";
+            return;
+        }
+
+        if (id < 0) {
+            _message = "BAD ARGUMENT";
+            return;
+        }
+
+        for (auto iter = windows.begin(); iter != windows.end(); iter++) {
+            if (iter->GetId() != id) {
+                continue;
+            }
+            
+            Window window = *iter;
+            windows.erase(iter);
+            window.Open();
+            windows.push_front(window);
+            return;
+        }
+
+        _message = "BAD ARGUMENT";
+    }
+    catch(const std::exception& e) {
+        _message = "BAD ARGUMENT";
+    }
+}
+
+HandlerCloseArguments::HandlerCloseArguments() {}
+
+void HandlerCloseArguments::Execute(std::list<Window> &windows, std::string string_args) {
+    if (windows.empty()) {
+        _message = "Window manager does not have a window";
+        return;
+    }
+
+    std::string arg1 = ARGUMENT_START_VALUE;
+    std::string arg2 = ARGUMENT_START_VALUE;
+    std::istringstream iss(string_args);
+    iss >> arg1 >> arg2;
+    try {
+        int id = std::stoi(arg1);
+
+        if (arg2 != ARGUMENT_START_VALUE) {
+            _message = "BAD ARGUMENT";
+            return;
+        }
+
+        if (id < 0) {
+            _message = "BAD ARGUMENT";
+            return;
+        }
+
+        for (Window &window: windows) {
+            if (window.GetId() != id) {
+                continue;
+            }
+
+            window.Close();
+            return;
+        }
+
+        _message = "BAD ARGUMENT";
+    }
+    catch(const std::exception& e) {
+        _message = "BAD ARGUMENT";
+    }
+}
