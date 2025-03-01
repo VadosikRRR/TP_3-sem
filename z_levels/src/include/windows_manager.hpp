@@ -7,6 +7,7 @@
 
 class WindowsManager {
 private:
+    std::string _message;
     static std::shared_ptr<WindowsManager> _instance;
     std::list<Window> _windows;
     std::unordered_map<std::string, std::shared_ptr<HandlerCommandArguments>> _commands;

@@ -22,3 +22,17 @@
 #define LIST "list"
 #define MOVE "move"
 #define CLICK "click"
+#define DEL "del"
+
+// background colors
+#define BLACK_BACKGROUND "\e[40m"
+#define RED_BACKGROUND "\e[41m"
+#define GREEN_BACKGROUND "\e[42m"
+#define YELLOW_BACKFROUND "\e[43m"
+#define BLUE_BACKFROUND "\e[44m"
+#define PURPLE_BACKFROUND "\e[45m"
+#define CYAN_BACKFROUND "\e[46m"
+#define WHITE_BACKFROUND "\e[47m"
+
+#define BOUNDARY_SYMBOL '#'
+#define EMPTY_CONSOLE "\033[2J\033[1;1H"

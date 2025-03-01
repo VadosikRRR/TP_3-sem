@@ -6,9 +6,17 @@
 
 HandlerCommandArguments::~HandlerCommandArguments() {}
 
-HandlerCommandArguments::HandlerCommandArguments() {}
+HandlerCommandArguments::HandlerCommandArguments() : _message("") {}
 
-HandlerAddArguments::HandlerAddArguments() {}
+std::string HandlerCommandArguments::GetMessage() {
+    return _message;
+}
+
+void HandlerCommandArguments::SetMessage(std::string new_message) {
+    _message = new_message;
+}
+
+HandlerAddArguments::HandlerAddArguments() : HandlerCommandArguments() {}
 
 void HandlerAddArguments::Execute(std::list<Window> &windows, std::string string_args) {
     std::string arg1 = ARGUMENT_START_VALUE;
@@ -24,7 +32,7 @@ void HandlerAddArguments::Execute(std::list<Window> &windows, std::string string
         int width = std::stoi(arg3);
         int height = std::stoi(arg4);
         if (arg5 != ARGUMENT_START_VALUE) {
-            std::cout << "BAD" << std::endl;
+            _message = "BAD";
             return;
         }
 
@@ -38,7 +46,7 @@ void HandlerAddArguments::Execute(std::list<Window> &windows, std::string string
         windows.push_front(Window(Point(x_coordinate, y_coordinate), width, height));
     }
     catch(const std::exception& e) {
-        std::cout << "BAD ARGUMENT" << std::endl;
+        _message = "BAD ARGUMENT";
     }
 }
 
@@ -46,12 +54,18 @@ HandlerListArguments::HandlerListArguments() {}
 
 void HandlerListArguments::Execute(std::list<Window> &windows, std::string string_args) {
     if (string_args != "") {
-        std::cout << "BAD ARGUMENT" << std::endl;
+        _message = "BAD ARGUMENT";
         return;
     }
 
+    if (windows.empty()) {
+        _message = "Window manager does not have a window";
+        return;
+    }
+    
+    _message = "";
     for (Window &window : windows) {
-        window.PrintInfo();
+        _message += window.GetInfo();
     }
 }
 
@@ -59,7 +73,7 @@ HandlerMoveArguments::HandlerMoveArguments() {}
 
 void HandlerMoveArguments::Execute(std::list<Window> &windows, std::string string_args) {
     if (windows.empty()) {
-        std::cout << "Window manager does not have a window";
+        _message = "Window manager does not have a window";
         return;
     }
 
@@ -72,7 +86,7 @@ void HandlerMoveArguments::Execute(std::list<Window> &windows, std::string strin
         int x_coordinate = std::stoi(arg1);
         int y_coordinate = std::stoi(arg2);
         if (arg3 != ARGUMENT_START_VALUE) {
-            std::cout << "BAD" << std::endl;
+            _message = "BAD";
             return;
         }
 
@@ -84,7 +98,7 @@ void HandlerMoveArguments::Execute(std::list<Window> &windows, std::string strin
         windows.front().MoveWindow(Point(x_coordinate, y_coordinate));
     }
     catch(const std::exception& e) {
-        std::cout << "BAD ARGUMENT" << std::endl;
+        _message = "BAD ARGUMENT";
     }
 }
 
@@ -92,7 +106,7 @@ HandlerClickArguments::HandlerClickArguments() {}
 
 void HandlerClickArguments::Execute(std::list<Window> &windows, std::string string_args) {
     if (windows.empty()) {
-        std::cout << "Window manager does not have a window";
+        _message = "Window manager does not have a window";
         return;
     }
 
@@ -105,7 +119,7 @@ void HandlerClickArguments::Execute(std::list<Window> &windows, std::string stri
         int x_coordinate = std::stoi(arg1);
         int y_coordinate = std::stoi(arg2);
         if (arg3 != ARGUMENT_START_VALUE) {
-            std::cout << "BAD" << std::endl;
+            _message = "BAD";
             return;
         }
 
@@ -127,6 +141,22 @@ void HandlerClickArguments::Execute(std::list<Window> &windows, std::string stri
         }
     }
     catch(const std::exception& e) {
-        std::cout << "BAD ARGUMENT" << std::endl;
+        _message = "BAD ARGUMENT";
     }
+}
+
+HandlerDelArgument::HandlerDelArgument() {}
+
+void HandlerDelArgument::Execute(std::list<Window> &windows, std::string string_args) {
+    if (string_args != "") {
+        _message = "BAD ARGUMENT";
+        return;
+    }
+
+    if (windows.empty()) {
+        _message = "Window manager does not have a window";
+        return;
+    }
+    
+    windows.pop_front();
 }

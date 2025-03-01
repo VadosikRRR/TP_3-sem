@@ -6,8 +6,11 @@
 
 class HandlerCommandArguments {
 protected:
+    std::string _message;
     HandlerCommandArguments();
 public:
+    std::string GetMessage();
+    void SetMessage(std::string new_message);
     virtual ~HandlerCommandArguments();
     virtual void Execute(std::list<Window> &windows, std::string string_args) = 0;
 };
@@ -37,5 +40,12 @@ public:
 class HandlerClickArguments : public HandlerCommandArguments {
 public:
     HandlerClickArguments();
+    virtual void Execute(std::list<Window> &windows, std::string string_args);
+};
+
+
+class HandlerDelArgument : public HandlerCommandArguments {
+public:
+    HandlerDelArgument();
     virtual void Execute(std::list<Window> &windows, std::string string_args);
 };

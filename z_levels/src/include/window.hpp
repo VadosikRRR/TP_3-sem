@@ -1,5 +1,6 @@
 #pragma once
 #include "point.hpp"
+#include <iostream>
 
 
 class Window {
@@ -9,6 +10,9 @@ private:
     int _width;
     int _height;
     Point _coordinate;
+
+    std::string _color;
+    std::string _border_color;
 public:
     Window();
     ~Window();
@@ -18,8 +22,10 @@ public:
     int GetWidth();
     int GetHeight();
     Point GetCoordinate();
+    std::string GetColor();
+    std::string GetBorderColor();
 
-    void PrintInfo();
+    std::string GetInfo();
     void MoveWindow(Point new_coordinate);
     
     bool BelongWindowPoint(Point point);

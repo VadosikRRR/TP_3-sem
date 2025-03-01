@@ -5,9 +5,14 @@
 
 int WINDOW_CNT = 0;
 
-Window::Window() : _id(WINDOW_CNT++), _is_open(true), _coordinate(Point()), _width(1), _height(1) {}
+Window::Window() : _id(WINDOW_CNT++), _is_open(true), 
+    _coordinate(Point()), _width(1), _height(1),
+    _color(BLUE_BACKFROUND), _border_color(RED_BACKGROUND) {}
 
-Window::Window(Point coordinate, int width, int height) : _id(WINDOW_CNT++), _is_open(true){
+Window::Window(Point coordinate, int width, int height) : 
+    _id(WINDOW_CNT++), _is_open(true), 
+    _color(BLUE_BACKFROUND), _border_color(RED_BACKGROUND) {
+
     if (coordinate._x >= 0 && coordinate._y >= 0) {
         _coordinate = coordinate;
     }
@@ -52,10 +57,22 @@ Point Window::GetCoordinate() {
     return _coordinate;
 }
 
-void Window::PrintInfo() {
-    std::cout << "ID: " << _id << "; ";
-    std::cout << "x: " << _coordinate._x << ", " << "y: " << _coordinate._y << "; ";
-    std::cout << "width: " << _width << ", " << "height: " << _height << ";" << std::endl;
+std::string Window::GetColor() {
+    return _color;
+}
+
+std::string Window::GetBorderColor() {
+    return _border_color;
+}
+
+std::string Window::GetInfo() {
+    std::string text = "";
+    text += "ID: " + std::string(_id + "; ");
+    text += "x: " + std::string(_coordinate._x + ", ");
+    text += "y: " + std::string(_coordinate._y + "; ");
+    text += "width: " + std::string(_width + ", ");
+    text += "height: " + std::string(_height + ";\n");
+    return text;
 }
 
 void Window::MoveWindow(Point new_coordinate) {
