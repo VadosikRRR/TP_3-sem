@@ -196,33 +196,13 @@ void HandlerChangeColorArguments::Execute(std::list<Window> &windows, std::strin
         return;
     }
     
-    if (arg1 == BLACK) {
-        windows.front().ChangeColor(BLACK_BACKGROUND);
+    auto it = COLORS.find(arg1);
+    if (it != COLORS.end()) {
+        windows.front().ChangeColor(it->second);
+        return;
     }
-    else if (arg1 == RED){
-        windows.front().ChangeColor(RED_BACKGROUND);
-    }
-    else if (arg1 == GREEN){
-        windows.front().ChangeColor(GREEN_BACKGROUND);
-    }
-    else if (arg1 == YELLOW){
-        windows.front().ChangeColor(YELLOW_BACKGROUND);
-    }
-    else if (arg1 == BLUE){
-        windows.front().ChangeColor(BLUE_BACKGROUND);
-    }
-    else if (arg1 ==  PURPLE){
-        windows.front().ChangeColor(BLUE_BACKGROUND);
-    }
-    else if (arg1 == CYAN){
-        windows.front().ChangeColor(BLUE_BACKGROUND);
-    }
-    else if (arg1 == WHITE){
-        windows.front().ChangeColor(BLUE_BACKGROUND);
-    }
-    else {
-        _message = ARGUMENT_ERROR;
-    }
+
+    _message = ARGUMENT_ERROR;
 }
 
 HandlerChangeBorderColorArguments::HandlerChangeBorderColorArguments(int new_width, int new_height) : HandlerCommandArguments(new_width, new_height) {}
@@ -242,33 +222,13 @@ void HandlerChangeBorderColorArguments::Execute(std::list<Window> &windows, std:
         return;
     }
     
-    if (arg1 == BLACK) {
-        windows.front().ChangeBorderColor(BLACK_BACKGROUND);
+    auto it = COLORS.find(arg1);
+    if (it != COLORS.end()) {
+        windows.front().ChangeBorderColor(it->second);
+        return;
     }
-    else if (arg1 == RED){
-        windows.front().ChangeBorderColor(RED_BACKGROUND);
-    }
-    else if (arg1 == GREEN){
-        windows.front().ChangeBorderColor(GREEN_BACKGROUND);
-    }
-    else if (arg1 == YELLOW){
-        windows.front().ChangeBorderColor(YELLOW_BACKGROUND);
-    }
-    else if (arg1 == BLUE){
-        windows.front().ChangeBorderColor(BLUE_BACKGROUND);
-    }
-    else if (arg1 ==  PURPLE){
-        windows.front().ChangeBorderColor(BLUE_BACKGROUND);
-    }
-    else if (arg1 == CYAN){
-        windows.front().ChangeBorderColor(BLUE_BACKGROUND);
-    }
-    else if (arg1 == WHITE){
-        windows.front().ChangeBorderColor(BLUE_BACKGROUND);
-    }
-    else {
-        _message = ARGUMENT_ERROR;
-    }
+
+    _message = ARGUMENT_ERROR;
 }
 
 HandlerOpenArguments::HandlerOpenArguments(int new_width, int new_height) : HandlerCommandArguments(new_width, new_height) {}
@@ -340,12 +300,15 @@ void HandlerCloseArguments::Execute(std::list<Window> &windows, std::string stri
             return;
         }
 
-        for (Window &window: windows) {
-            if (window.GetId() != id) {
+        for (auto iter = windows.begin(); iter != windows.end(); iter++) {
+            if (iter->GetId() != id) {
                 continue;
             }
-
+            
+            Window window = *iter;
+            windows.erase(iter);
             window.Close();
+            windows.push_back(window);
             return;
         }
 

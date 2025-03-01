@@ -33,6 +33,8 @@ void WindowsManager::Launch() {
         std::cout << SIZE_ERROR << std::endl;
         return;
     }
+    
+    fill_colors();
 
     for (auto &command: _commands) {
         command.second.get()->SetWidth(_main_width);

@@ -1,4 +1,6 @@
 #pragma once
+#include "colors.hpp"
+
 
 // For parser
 #define START_OUTPUT "> "
