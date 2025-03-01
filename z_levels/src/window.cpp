@@ -65,3 +65,15 @@ void Window::MoveWindow(Point new_coordinate) {
     
     _coordinate = new_coordinate;
 }
+
+
+bool Window::BelongWindowPoint(Point point) {
+    bool belong_x = point._x >=_coordinate._x && 
+                    point._x <= _coordinate._x + _width - 1;
+    bool belong_y = point._y >=_coordinate._y && 
+                    point._y <= _coordinate._y + _height - 1;
+    return belong_x && belong_y;
+}
+
+
+

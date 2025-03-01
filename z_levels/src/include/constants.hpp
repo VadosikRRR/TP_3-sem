@@ -21,3 +21,4 @@
 #define ADD "add"
 #define LIST "list"
 #define MOVE "move"
+#define CLICK "click"

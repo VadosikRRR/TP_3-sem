@@ -18,6 +18,7 @@ WindowsManager::WindowsManager() {
     _commands[ADD] = std::make_shared<HandlerAddArguments>(HandlerAddArguments());
     _commands[LIST] = std::make_shared<HandlerListArguments>(HandlerListArguments());
     _commands[MOVE] = std::make_shared<HandlerMoveArguments>(HandlerMoveArguments());
+    _commands[CLICK] = std::make_shared<HandlerClickArguments>(HandlerClickArguments());
 }
 
 void WindowsManager::Launch() {

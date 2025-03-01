@@ -87,3 +87,46 @@ void HandlerMoveArguments::Execute(std::list<Window> &windows, std::string strin
         std::cout << "BAD ARGUMENT" << std::endl;
     }
 }
+
+HandlerClickArguments::HandlerClickArguments() {}
+
+void HandlerClickArguments::Execute(std::list<Window> &windows, std::string string_args) {
+    if (windows.empty()) {
+        std::cout << "Window manager does not have a window";
+        return;
+    }
+
+    std::string arg1 = ARGUMENT_START_VALUE;
+    std::string arg2 = ARGUMENT_START_VALUE;
+    std::string arg3 = ARGUMENT_START_VALUE;
+    std::istringstream iss(string_args);
+    iss >> arg1 >> arg2 >> arg3;
+    try {
+        int x_coordinate = std::stoi(arg1);
+        int y_coordinate = std::stoi(arg2);
+        if (arg3 != ARGUMENT_START_VALUE) {
+            std::cout << "BAD" << std::endl;
+            return;
+        }
+
+        if (x_coordinate < 0 ||
+            y_coordinate < 0) {
+            return;
+        }
+        
+        Point point = Point(x_coordinate, y_coordinate);
+        for (auto iter = windows.begin(); iter != windows.end(); iter++) {
+            if (!iter->BelongWindowPoint(point)) {
+                continue;
+            }
+            
+            Window window = *iter;
+            windows.erase(iter);
+            windows.push_front(window);
+            return;
+        }
+    }
+    catch(const std::exception& e) {
+        std::cout << "BAD ARGUMENT" << std::endl;
+    }
+}

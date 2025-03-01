@@ -21,4 +21,6 @@ public:
 
     void PrintInfo();
     void MoveWindow(Point new_coordinate);
+    
+    bool BelongWindowPoint(Point point);
 };

@@ -32,3 +32,10 @@ public:
     HandlerMoveArguments();
     virtual void Execute(std::list<Window> &windows, std::string string_args);
 };
+
+
+class HandlerClickArguments : public HandlerCommandArguments {
+public:
+    HandlerClickArguments();
+    virtual void Execute(std::list<Window> &windows, std::string string_args);
+};
