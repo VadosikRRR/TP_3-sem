@@ -6,10 +6,14 @@
 
 class HandlerCommandArguments {
 protected:
+    int _main_width;
+    int _main_height;
     std::string _message;
-    HandlerCommandArguments();
+    HandlerCommandArguments(int new_width, int new_height);
 public:
     std::string GetMessage();
+    void SetWidth(int main_width);
+    void SetHeight(int main_width);
     void SetMessage(std::string new_message);
     virtual ~HandlerCommandArguments();
     virtual void Execute(std::list<Window> &windows, std::string string_args) = 0;
@@ -18,62 +22,62 @@ public:
 
 class HandlerAddArguments : public HandlerCommandArguments {
 public:
-    HandlerAddArguments();
+    HandlerAddArguments(int new_width, int new_height);
     virtual void Execute(std::list<Window> &windows, std::string string_args);
 };
 
 
 class HandlerListArguments : public HandlerCommandArguments {
 public:
-    HandlerListArguments();
+    HandlerListArguments(int new_width, int new_height);
     virtual void Execute(std::list<Window> &windows, std::string string_args);
 };
 
 
 class HandlerMoveArguments : public HandlerCommandArguments {
 public:
-    HandlerMoveArguments();
+    HandlerMoveArguments(int new_width, int new_height);
     virtual void Execute(std::list<Window> &windows, std::string string_args);
 };
 
 
 class HandlerClickArguments : public HandlerCommandArguments {
 public:
-    HandlerClickArguments();
+    HandlerClickArguments(int new_width, int new_height);
     virtual void Execute(std::list<Window> &windows, std::string string_args);
 };
 
 
 class HandlerDelArguments : public HandlerCommandArguments {
 public:
-    HandlerDelArguments();
+    HandlerDelArguments(int new_width, int new_height);
     virtual void Execute(std::list<Window> &windows, std::string string_args);
 };
 
 
 class HandlerChangeColorArguments : public HandlerCommandArguments {
 public:
-    HandlerChangeColorArguments();
+    HandlerChangeColorArguments(int new_width, int new_height);
     virtual void Execute(std::list<Window> &windows, std::string string_args);
 };
 
 
 class HandlerChangeBorderColorArguments : public HandlerCommandArguments {
 public:
-    HandlerChangeBorderColorArguments();
+    HandlerChangeBorderColorArguments(int new_width, int new_height);
     virtual void Execute(std::list<Window> &windows, std::string string_args);
 };
 
 
 class HandlerOpenArguments : public HandlerCommandArguments {
 public:
-    HandlerOpenArguments();
+    HandlerOpenArguments(int new_width, int new_height);
     virtual void Execute(std::list<Window> &windows, std::string string_args);
 };
 
 
 class HandlerCloseArguments : public HandlerCommandArguments {
 public:
-    HandlerCloseArguments();
+    HandlerCloseArguments(int new_width, int new_height);
     virtual void Execute(std::list<Window> &windows, std::string string_args);
 };

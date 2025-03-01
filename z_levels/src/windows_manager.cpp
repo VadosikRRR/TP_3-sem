@@ -17,21 +17,26 @@ WindowsManager & WindowsManager::Instance() {
 }
 
 WindowsManager::WindowsManager() : _main_width(-1), _main_height(-1), _message("") {
-    _commands[ADD] = std::make_shared<HandlerAddArguments>(HandlerAddArguments());
-    _commands[LIST] = std::make_shared<HandlerListArguments>(HandlerListArguments());
-    _commands[MOVE] = std::make_shared<HandlerMoveArguments>(HandlerMoveArguments());
-    _commands[CLICK] = std::make_shared<HandlerClickArguments>(HandlerClickArguments());
-    _commands[DEL] = std::make_shared<HandlerDelArguments>(HandlerDelArguments());
-    _commands[CHANGE_BORDER_COL] = std::make_shared<HandlerChangeBorderColorArguments>(HandlerChangeBorderColorArguments());
-    _commands[CHANGE_COL] = std::make_shared<HandlerChangeColorArguments>(HandlerChangeColorArguments());
-    _commands[OPEN] = std::make_shared<HandlerOpenArguments>(HandlerOpenArguments());
-    _commands[CLOSE] = std::make_shared<HandlerCloseArguments>(HandlerCloseArguments());
+    _commands[ADD] = std::make_shared<HandlerAddArguments>(HandlerAddArguments(_main_width, _main_height));
+    _commands[LIST] = std::make_shared<HandlerListArguments>(HandlerListArguments(_main_width, _main_height));
+    _commands[MOVE] = std::make_shared<HandlerMoveArguments>(HandlerMoveArguments(_main_width, _main_height));
+    _commands[CLICK] = std::make_shared<HandlerClickArguments>(HandlerClickArguments(_main_width, _main_height));
+    _commands[DEL] = std::make_shared<HandlerDelArguments>(HandlerDelArguments(_main_width, _main_height));
+    _commands[CHANGE_BORDER_COL] = std::make_shared<HandlerChangeBorderColorArguments>(HandlerChangeBorderColorArguments(_main_width, _main_height));
+    _commands[CHANGE_COL] = std::make_shared<HandlerChangeColorArguments>(HandlerChangeColorArguments(_main_width, _main_height));
+    _commands[OPEN] = std::make_shared<HandlerOpenArguments>(HandlerOpenArguments(_main_width, _main_height));
+    _commands[CLOSE] = std::make_shared<HandlerCloseArguments>(HandlerCloseArguments(_main_width, _main_height));
 }
 
-void WindowsManager::Launch() {
+void WindowsManager::Launch() { 
     if (_main_height == -1 || _main_width == -1) {
         std::cout << SIZE_ERROR << std::endl;
         return;
+    }
+
+    for (auto &command: _commands) {
+        command.second.get()->SetWidth(_main_width);
+        command.second.get()->SetHeight(_main_height);
     }
     
     Parser & parser = Parser::Instance();

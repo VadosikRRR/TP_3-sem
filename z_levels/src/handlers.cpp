@@ -6,17 +6,30 @@
 
 HandlerCommandArguments::~HandlerCommandArguments() {}
 
-HandlerCommandArguments::HandlerCommandArguments() : _message("") {}
+HandlerCommandArguments::HandlerCommandArguments(int new_width, int new_height) : _main_width(new_width), _main_height(new_height), _message("") {}
 
 std::string HandlerCommandArguments::GetMessage() {
     return _message;
 }
 
+void HandlerCommandArguments::SetWidth(int new_width) {
+    if (new_width > 0) {
+        _main_width = new_width;
+    }
+}
+
+void HandlerCommandArguments::SetHeight(int new_height) {
+    if (new_height > 0) {
+        _main_height = new_height;
+    }
+}
+
+
 void HandlerCommandArguments::SetMessage(std::string new_message) {
     _message = new_message;
 }
 
-HandlerAddArguments::HandlerAddArguments() : HandlerCommandArguments() {}
+HandlerAddArguments::HandlerAddArguments(int new_width, int new_height) : HandlerCommandArguments(new_width, new_height) {}
 
 void HandlerAddArguments::Execute(std::list<Window> &windows, std::string string_args) {
     std::string arg1 = ARGUMENT_START_VALUE;
@@ -36,10 +49,11 @@ void HandlerAddArguments::Execute(std::list<Window> &windows, std::string string
             return;
         }
 
-        if (x_coordinate < 0 ||
-            y_coordinate < 0 ||
-            width < 0 ||
-            height < 0) {
+        if (x_coordinate < 0 || y_coordinate < 0 ||
+            width < 0 || height < 0 ||
+            x_coordinate + width > _main_width ||
+            y_coordinate + height > _main_height) { 
+            _message = ARGUMENT_ERROR;
             return;
         }
         
@@ -50,7 +64,7 @@ void HandlerAddArguments::Execute(std::list<Window> &windows, std::string string
     }
 }
 
-HandlerListArguments::HandlerListArguments() {}
+HandlerListArguments::HandlerListArguments(int new_width, int new_height) : HandlerCommandArguments(new_width, new_height) {}
 
 void HandlerListArguments::Execute(std::list<Window> &windows, std::string string_args) {
     if (string_args != "") {
@@ -69,7 +83,7 @@ void HandlerListArguments::Execute(std::list<Window> &windows, std::string strin
     }
 }
 
-HandlerMoveArguments::HandlerMoveArguments() {}
+HandlerMoveArguments::HandlerMoveArguments(int new_width, int new_height) : HandlerCommandArguments(new_width, new_height) {}
 
 void HandlerMoveArguments::Execute(std::list<Window> &windows, std::string string_args) {
     if (windows.empty()) {
@@ -90,8 +104,12 @@ void HandlerMoveArguments::Execute(std::list<Window> &windows, std::string strin
             return;
         }
 
-        if (x_coordinate < 0 ||
-            y_coordinate < 0) {
+        Window &window = windows.front();
+
+        if (x_coordinate < 0 || y_coordinate < 0 ||
+            x_coordinate + window.GetWidth() > _main_width ||
+            y_coordinate + window.GetHeight() > _main_height) {
+            _message = ARGUMENT_ERROR;
             return;
         }
         
@@ -102,7 +120,7 @@ void HandlerMoveArguments::Execute(std::list<Window> &windows, std::string strin
     }
 }
 
-HandlerClickArguments::HandlerClickArguments() {}
+HandlerClickArguments::HandlerClickArguments(int new_width, int new_height) : HandlerCommandArguments(new_width, new_height) {}
 
 void HandlerClickArguments::Execute(std::list<Window> &windows, std::string string_args) {
     if (windows.empty()) {
@@ -123,8 +141,8 @@ void HandlerClickArguments::Execute(std::list<Window> &windows, std::string stri
             return;
         }
 
-        if (x_coordinate < 0 ||
-            y_coordinate < 0) {
+        if (x_coordinate < 0 || y_coordinate < 0 ||
+            x_coordinate > _main_width - 1 || y_coordinate > _main_height - 1) {
             return;
         }
         
@@ -145,7 +163,7 @@ void HandlerClickArguments::Execute(std::list<Window> &windows, std::string stri
     }
 }
 
-HandlerDelArguments::HandlerDelArguments() {}
+HandlerDelArguments::HandlerDelArguments(int new_width, int new_height) : HandlerCommandArguments(new_width, new_height) {}
 
 void HandlerDelArguments::Execute(std::list<Window> &windows, std::string string_args) {
     if (string_args != "") {
@@ -161,7 +179,7 @@ void HandlerDelArguments::Execute(std::list<Window> &windows, std::string string
     windows.pop_front();
 }
 
-HandlerChangeColorArguments::HandlerChangeColorArguments() {}
+HandlerChangeColorArguments::HandlerChangeColorArguments(int new_width, int new_height) : HandlerCommandArguments(new_width, new_height) {}
 
 void HandlerChangeColorArguments::Execute(std::list<Window> &windows, std::string string_args) {
     if (windows.empty()) {
@@ -207,7 +225,7 @@ void HandlerChangeColorArguments::Execute(std::list<Window> &windows, std::strin
     }
 }
 
-HandlerChangeBorderColorArguments::HandlerChangeBorderColorArguments() {}
+HandlerChangeBorderColorArguments::HandlerChangeBorderColorArguments(int new_width, int new_height) : HandlerCommandArguments(new_width, new_height) {}
 
 void HandlerChangeBorderColorArguments::Execute(std::list<Window> &windows, std::string string_args) {
     if (windows.empty()) {
@@ -253,7 +271,7 @@ void HandlerChangeBorderColorArguments::Execute(std::list<Window> &windows, std:
     }
 }
 
-HandlerOpenArguments::HandlerOpenArguments() {}
+HandlerOpenArguments::HandlerOpenArguments(int new_width, int new_height) : HandlerCommandArguments(new_width, new_height) {}
 
 void HandlerOpenArguments::Execute(std::list<Window> &windows, std::string string_args) {
     if (windows.empty()) {
@@ -297,7 +315,7 @@ void HandlerOpenArguments::Execute(std::list<Window> &windows, std::string strin
     }
 }
 
-HandlerCloseArguments::HandlerCloseArguments() {}
+HandlerCloseArguments::HandlerCloseArguments(int new_width, int new_height) : HandlerCommandArguments(new_width, new_height) {}
 
 void HandlerCloseArguments::Execute(std::list<Window> &windows, std::string string_args) {
     if (windows.empty()) {
