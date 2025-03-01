@@ -1,4 +1,5 @@
 #include "include/handler_coomand_arguments.hpp"
+#include "include/constant.hpp"
 #include <sstream>
 
 
@@ -70,7 +71,7 @@ Command * HandlerInsertArguments::Execute(Document &document, std::string string
         return NULL;
     }
     catch(const std::invalid_argument& e) {
-            return NULL;
+        return NULL;
     }
 }
 

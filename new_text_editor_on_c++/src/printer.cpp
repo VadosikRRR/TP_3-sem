@@ -1,5 +1,7 @@
 #include "include/printer.hpp"
-#include "include/constants.hpp"
+
+#include "include/constant.hpp"
+
 #include <iostream>
 #include <vector>
 
@@ -60,9 +62,10 @@ void Printer::Print(Document &document) {
             
             if (index == cursor_position) {
                 std::cout << RED_COLOR << text[index] << STANDART_COLOR;
-                if (keys_cnt < keys.size() && index >= keys[keys_cnt] && index < highlighter[keys[keys_cnt]]) {
+                if (index >= keys[keys_cnt] && index < highlighter[keys[keys_cnt]]) {
                     std::cout << GREEN_COLOR;
                 }
+                
                 continue;
             }
             
@@ -170,3 +173,4 @@ void hash_line(int hash_symbols_number) {
 void clear_console() {
     std::cout << EMPTY_CONSOLE;
 }
+

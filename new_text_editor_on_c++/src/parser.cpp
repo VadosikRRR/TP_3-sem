@@ -1,3 +1,4 @@
+#include "include/constant.hpp"
 #include "include/parser.hpp"
 #include "include/constants.hpp"
 

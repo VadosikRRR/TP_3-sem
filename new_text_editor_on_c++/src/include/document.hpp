@@ -1,5 +1,6 @@
 #pragma once
-#include "constants.hpp"
+
+#include "constant.hpp"
 #include <iostream>
 #include <map>
 

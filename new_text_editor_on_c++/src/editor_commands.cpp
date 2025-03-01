@@ -1,5 +1,5 @@
 #include "include/editor_commands.hpp"
-#include "include/constants.hpp"
+#include "include/constant.hpp"
 #include <string>
 #include <fstream>
 
@@ -9,8 +9,7 @@ Command::Command(Document &document) : _document(document) {}
 Command::~Command() {}
 
 AddCommand::AddCommand(Document &document, std::string new_text) : _new_text(new_text), Command(document) {}
-
-
+`
 void AddCommand::Execute() {
     _document.GetDocumentText().append(_new_text);
     _document.GetCursorPosition() = _document.GetDocumentText().length() - 1;
@@ -217,7 +216,7 @@ void SaveCommand::Execute() {
     std::ofstream out_file(path);
 
     if (!out_file) {
-        _document.GetErrorMessage() = FILE_ACCESS_ERROR;
+        _document.GetErrorMessage() = FILE_ACCESS_ERROR + std::string(". Путь: " + path);
         return;
     }
 
@@ -231,7 +230,7 @@ void LoadCommand::Execute() {
     std::string path = PATH_TO_FILES + _name + DOCUMENT_EXTENSION;
     std::ifstream in_file(path);
     if (!in_file) {
-        std::cerr << FILE_ACCESS_ERROR << path << std::endl;
+        _document.GetErrorMessage() = FILE_ACCESS_ERROR + std::string(". Путь: " + path);
         return;
     }
 
