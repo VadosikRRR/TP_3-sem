@@ -7,11 +7,11 @@ int WINDOW_CNT = 0;
 
 Window::Window() : _id(WINDOW_CNT++), _is_open(true), 
     _coordinate(Point()), _width(1), _height(1),
-    _color(BLUE_BACKFROUND), _border_color(RED_BACKGROUND) {}
+    _color(BLUE_BACKGROUND), _border_color(RED_BACKGROUND) {}
 
 Window::Window(Point coordinate, int width, int height) : 
     _id(WINDOW_CNT++), _is_open(true), 
-    _color(BLUE_BACKFROUND), _border_color(RED_BACKGROUND) {
+    _color(BLUE_BACKGROUND), _border_color(RED_BACKGROUND) {
 
     if (coordinate._x >= 0 && coordinate._y >= 0) {
         _coordinate = coordinate;
@@ -83,7 +83,6 @@ void Window::MoveWindow(Point new_coordinate) {
     _coordinate = new_coordinate;
 }
 
-
 bool Window::BelongWindowPoint(Point point) {
     bool belong_x = point._x >=_coordinate._x && 
                     point._x <= _coordinate._x + _width - 1;
@@ -92,5 +91,10 @@ bool Window::BelongWindowPoint(Point point) {
     return belong_x && belong_y;
 }
 
+void Window::ChangeColor(std::string new_color) {
+    _color = new_color;
+}
 
-
+void Window::ChangeBorderColor(std::string new_border_color) {
+    _border_color = new_border_color;
+}

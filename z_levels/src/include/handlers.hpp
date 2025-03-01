@@ -44,8 +44,22 @@ public:
 };
 
 
-class HandlerDelArgument : public HandlerCommandArguments {
+class HandlerDelArguments : public HandlerCommandArguments {
 public:
-    HandlerDelArgument();
+    HandlerDelArguments();
+    virtual void Execute(std::list<Window> &windows, std::string string_args);
+};
+
+
+class HandlerChangeColorArguments : public HandlerCommandArguments {
+public:
+    HandlerChangeColorArguments();
+    virtual void Execute(std::list<Window> &windows, std::string string_args);
+};
+
+
+class HandlerChangeBorderColorArguments : public HandlerCommandArguments {
+public:
+    HandlerChangeBorderColorArguments();
     virtual void Execute(std::list<Window> &windows, std::string string_args);
 };

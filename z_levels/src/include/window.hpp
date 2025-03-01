@@ -25,6 +25,9 @@ public:
     std::string GetColor();
     std::string GetBorderColor();
 
+    void ChangeColor(std::string new_color);
+    void ChangeBorderColor(std::string new_border_color);
+
     std::string GetInfo();
     void MoveWindow(Point new_coordinate);
     

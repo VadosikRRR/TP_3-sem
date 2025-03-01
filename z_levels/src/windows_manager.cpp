@@ -21,7 +21,9 @@ WindowsManager::WindowsManager() : _message("") {
     _commands[LIST] = std::make_shared<HandlerListArguments>(HandlerListArguments());
     _commands[MOVE] = std::make_shared<HandlerMoveArguments>(HandlerMoveArguments());
     _commands[CLICK] = std::make_shared<HandlerClickArguments>(HandlerClickArguments());
-    _commands[DEL] = std::make_shared<HandlerDelArgument>(HandlerDelArgument());
+    _commands[DEL] = std::make_shared<HandlerDelArguments>(HandlerDelArguments());
+    _commands[CHANGE_BORDER_COL] = std::make_shared<HandlerChangeBorderColorArguments>(HandlerChangeBorderColorArguments());
+    _commands[CHANGE_COL] = std::make_shared<HandlerChangeColorArguments>(HandlerChangeColorArguments());
 }
 
 void WindowsManager::Launch() {

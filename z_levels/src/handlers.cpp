@@ -145,9 +145,9 @@ void HandlerClickArguments::Execute(std::list<Window> &windows, std::string stri
     }
 }
 
-HandlerDelArgument::HandlerDelArgument() {}
+HandlerDelArguments::HandlerDelArguments() {}
 
-void HandlerDelArgument::Execute(std::list<Window> &windows, std::string string_args) {
+void HandlerDelArguments::Execute(std::list<Window> &windows, std::string string_args) {
     if (string_args != "") {
         _message = "BAD ARGUMENT";
         return;
@@ -159,4 +159,96 @@ void HandlerDelArgument::Execute(std::list<Window> &windows, std::string string_
     }
     
     windows.pop_front();
+}
+
+HandlerChangeColorArguments::HandlerChangeColorArguments() {}
+
+void HandlerChangeColorArguments::Execute(std::list<Window> &windows, std::string string_args) {
+    if (windows.empty()) {
+        _message = "Window manager does not have a window";
+        return;
+    }
+
+    std::string arg1 = ARGUMENT_START_VALUE;
+    std::string arg2 = ARGUMENT_START_VALUE;
+    std::istringstream iss(string_args);
+    iss >> arg1 >> arg2;
+    if (arg2 != ARGUMENT_START_VALUE) {
+        _message = "BAD ARGUMENT";
+        return;
+    }
+    
+    if (arg1 == BLACK) {
+        windows.front().ChangeColor(BLACK_BACKGROUND);
+    }
+    else if (arg1 == RED){
+        windows.front().ChangeColor(RED_BACKGROUND);
+    }
+    else if (arg1 == GREEN){
+        windows.front().ChangeColor(GREEN_BACKGROUND);
+    }
+    else if (arg1 == YELLOW){
+        windows.front().ChangeColor(YELLOW_BACKGROUND);
+    }
+    else if (arg1 == BLUE){
+        windows.front().ChangeColor(BLUE_BACKGROUND);
+    }
+    else if (arg1 ==  PURPLE){
+        windows.front().ChangeColor(BLUE_BACKGROUND);
+    }
+    else if (arg1 == CYAN){
+        windows.front().ChangeColor(BLUE_BACKGROUND);
+    }
+    else if (arg1 == WHITE){
+        windows.front().ChangeColor(BLUE_BACKGROUND);
+    }
+    else {
+        _message = "BAD ARGUMENT";
+    }
+}
+
+HandlerChangeBorderColorArguments::HandlerChangeBorderColorArguments() {}
+
+void HandlerChangeBorderColorArguments::Execute(std::list<Window> &windows, std::string string_args) {
+    if (windows.empty()) {
+        _message = "Window manager does not have a window";
+        return;
+    }
+
+    std::string arg1 = ARGUMENT_START_VALUE;
+    std::string arg2 = ARGUMENT_START_VALUE;
+    std::istringstream iss(string_args);
+    iss >> arg1 >> arg2;
+    if (arg2 != ARGUMENT_START_VALUE) {
+        _message = "BAD ARGUMENT";
+        return;
+    }
+    
+    if (arg1 == BLACK) {
+        windows.front().ChangeBorderColor(BLACK_BACKGROUND);
+    }
+    else if (arg1 == RED){
+        windows.front().ChangeBorderColor(RED_BACKGROUND);
+    }
+    else if (arg1 == GREEN){
+        windows.front().ChangeBorderColor(GREEN_BACKGROUND);
+    }
+    else if (arg1 == YELLOW){
+        windows.front().ChangeBorderColor(YELLOW_BACKGROUND);
+    }
+    else if (arg1 == BLUE){
+        windows.front().ChangeBorderColor(BLUE_BACKGROUND);
+    }
+    else if (arg1 ==  PURPLE){
+        windows.front().ChangeBorderColor(BLUE_BACKGROUND);
+    }
+    else if (arg1 == CYAN){
+        windows.front().ChangeBorderColor(BLUE_BACKGROUND);
+    }
+    else if (arg1 == WHITE){
+        windows.front().ChangeBorderColor(BLUE_BACKGROUND);
+    }
+    else {
+        _message = "BAD ARGUMENT";
+    }
 }
