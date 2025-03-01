@@ -1,16 +1,15 @@
-#include "include/constant.hpp"
 #include "include/parser.hpp"
 #include "include/constants.hpp"
 
 
-Parser * Parser::_instance = 0;
+std::shared_ptr<Parser> Parser::_instance = 0;
 
-Parser * Parser::Instance() {
+Parser & Parser::Instance() {
     if (!_instance) {
-        _instance = new Parser();
+        _instance = std::make_shared<Parser>(Parser());
     }
     
-    return _instance;
+    return *_instance;
 }
 
 Parser::Parser() {}

@@ -7,7 +7,7 @@
 class Manager {
 private:
     static Manager *_instance;
-    std::map<std::string, HandlerCommandArguments *> _commands;
+    std::map<std::string, HandlerCommandArguments *> _commands; //Unordered
 protected:
     Manager();
 public:

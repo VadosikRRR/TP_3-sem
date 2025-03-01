@@ -5,6 +5,7 @@
 #include "include/constant.hpp"
 
 
+
 TextEditor * TextEditor::_instance = 0;
 
 TextEditor * TextEditor::Instance() {
@@ -34,6 +35,9 @@ void TextEditor::Launch() {
     std::string input_text;
     while (true) {
         input_text = p_parser->Parse();
+        if (input_text == "Exit") {
+            break;
+        }
         p_manager->StringProcessing(_document, input_text);
         p_printer->Print(_document);
         _document.GetHighlighting().clear();

@@ -1,5 +1,7 @@
 #include "include/printer.hpp"
+
 #include "include/constant.hpp"
+
 #include <iostream>
 #include <vector>
 
@@ -171,3 +173,4 @@ void hash_line(int hash_symbols_number) {
 void clear_console() {
     std::cout << EMPTY_CONSOLE;
 }
+

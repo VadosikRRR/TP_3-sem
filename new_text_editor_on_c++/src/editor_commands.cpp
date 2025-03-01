@@ -9,7 +9,7 @@ Command::Command(Document &document) : _document(document) {}
 Command::~Command() {}
 
 AddCommand::AddCommand(Document &document, std::string new_text) : _new_text(new_text), Command(document) {}
-
+`
 void AddCommand::Execute() {
     _document.GetDocumentText().append(_new_text);
     _document.GetCursorPosition() = _document.GetDocumentText().length() - 1;
