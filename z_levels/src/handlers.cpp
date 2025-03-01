@@ -32,7 +32,7 @@ void HandlerAddArguments::Execute(std::list<Window> &windows, std::string string
         int width = std::stoi(arg3);
         int height = std::stoi(arg4);
         if (arg5 != ARGUMENT_START_VALUE) {
-            _message = "BAD";
+            _message = ARGUMENT_ERROR;
             return;
         }
 
@@ -46,7 +46,7 @@ void HandlerAddArguments::Execute(std::list<Window> &windows, std::string string
         windows.push_front(Window(Point(x_coordinate, y_coordinate), width, height));
     }
     catch(const std::exception& e) {
-        _message = "BAD ARGUMENT";
+        _message = ARGUMENT_ERROR;
     }
 }
 
@@ -54,12 +54,12 @@ HandlerListArguments::HandlerListArguments() {}
 
 void HandlerListArguments::Execute(std::list<Window> &windows, std::string string_args) {
     if (string_args != "") {
-        _message = "BAD ARGUMENT";
+        _message = ARGUMENT_ERROR;
         return;
     }
 
     if (windows.empty()) {
-        _message = "Window manager does not have a window";
+        _message = EMPTY_WINDOWS_ERROR;
         return;
     }
     
@@ -73,7 +73,7 @@ HandlerMoveArguments::HandlerMoveArguments() {}
 
 void HandlerMoveArguments::Execute(std::list<Window> &windows, std::string string_args) {
     if (windows.empty()) {
-        _message = "Window manager does not have a window";
+        _message = EMPTY_WINDOWS_ERROR;
         return;
     }
 
@@ -86,7 +86,7 @@ void HandlerMoveArguments::Execute(std::list<Window> &windows, std::string strin
         int x_coordinate = std::stoi(arg1);
         int y_coordinate = std::stoi(arg2);
         if (arg3 != ARGUMENT_START_VALUE) {
-            _message = "BAD";
+            _message = ARGUMENT_ERROR;
             return;
         }
 
@@ -98,7 +98,7 @@ void HandlerMoveArguments::Execute(std::list<Window> &windows, std::string strin
         windows.front().MoveWindow(Point(x_coordinate, y_coordinate));
     }
     catch(const std::exception& e) {
-        _message = "BAD ARGUMENT";
+        _message = ARGUMENT_ERROR;
     }
 }
 
@@ -106,7 +106,7 @@ HandlerClickArguments::HandlerClickArguments() {}
 
 void HandlerClickArguments::Execute(std::list<Window> &windows, std::string string_args) {
     if (windows.empty()) {
-        _message = "Window manager does not have a window";
+        _message = EMPTY_WINDOWS_ERROR;
         return;
     }
 
@@ -119,7 +119,7 @@ void HandlerClickArguments::Execute(std::list<Window> &windows, std::string stri
         int x_coordinate = std::stoi(arg1);
         int y_coordinate = std::stoi(arg2);
         if (arg3 != ARGUMENT_START_VALUE) {
-            _message = "BAD";
+            _message = ARGUMENT_ERROR;
             return;
         }
 
@@ -141,7 +141,7 @@ void HandlerClickArguments::Execute(std::list<Window> &windows, std::string stri
         }
     }
     catch(const std::exception& e) {
-        _message = "BAD ARGUMENT";
+        _message = ARGUMENT_ERROR;
     }
 }
 
@@ -149,12 +149,12 @@ HandlerDelArguments::HandlerDelArguments() {}
 
 void HandlerDelArguments::Execute(std::list<Window> &windows, std::string string_args) {
     if (string_args != "") {
-        _message = "BAD ARGUMENT";
+        _message = ARGUMENT_ERROR;
         return;
     }
 
     if (windows.empty()) {
-        _message = "Window manager does not have a window";
+        _message = EMPTY_WINDOWS_ERROR;
         return;
     }
     
@@ -165,7 +165,7 @@ HandlerChangeColorArguments::HandlerChangeColorArguments() {}
 
 void HandlerChangeColorArguments::Execute(std::list<Window> &windows, std::string string_args) {
     if (windows.empty()) {
-        _message = "Window manager does not have a window";
+        _message = EMPTY_WINDOWS_ERROR;
         return;
     }
 
@@ -174,7 +174,7 @@ void HandlerChangeColorArguments::Execute(std::list<Window> &windows, std::strin
     std::istringstream iss(string_args);
     iss >> arg1 >> arg2;
     if (arg2 != ARGUMENT_START_VALUE) {
-        _message = "BAD ARGUMENT";
+        _message = ARGUMENT_ERROR;
         return;
     }
     
@@ -203,7 +203,7 @@ void HandlerChangeColorArguments::Execute(std::list<Window> &windows, std::strin
         windows.front().ChangeColor(BLUE_BACKGROUND);
     }
     else {
-        _message = "BAD ARGUMENT";
+        _message = ARGUMENT_ERROR;
     }
 }
 
@@ -211,7 +211,7 @@ HandlerChangeBorderColorArguments::HandlerChangeBorderColorArguments() {}
 
 void HandlerChangeBorderColorArguments::Execute(std::list<Window> &windows, std::string string_args) {
     if (windows.empty()) {
-        _message = "Window manager does not have a window";
+        _message = EMPTY_WINDOWS_ERROR;
         return;
     }
 
@@ -220,7 +220,7 @@ void HandlerChangeBorderColorArguments::Execute(std::list<Window> &windows, std:
     std::istringstream iss(string_args);
     iss >> arg1 >> arg2;
     if (arg2 != ARGUMENT_START_VALUE) {
-        _message = "BAD ARGUMENT";
+        _message = ARGUMENT_ERROR;
         return;
     }
     
@@ -249,7 +249,7 @@ void HandlerChangeBorderColorArguments::Execute(std::list<Window> &windows, std:
         windows.front().ChangeBorderColor(BLUE_BACKGROUND);
     }
     else {
-        _message = "BAD ARGUMENT";
+        _message = ARGUMENT_ERROR;
     }
 }
 
@@ -257,7 +257,7 @@ HandlerOpenArguments::HandlerOpenArguments() {}
 
 void HandlerOpenArguments::Execute(std::list<Window> &windows, std::string string_args) {
     if (windows.empty()) {
-        _message = "Window manager does not have a window";
+        _message = EMPTY_WINDOWS_ERROR;
         return;
     }
 
@@ -269,12 +269,12 @@ void HandlerOpenArguments::Execute(std::list<Window> &windows, std::string strin
         int id = std::stoi(arg1);
 
         if (arg2 != ARGUMENT_START_VALUE) {
-            _message = "BAD ARGUMENT";
+            _message = ARGUMENT_ERROR;
             return;
         }
 
         if (id < 0) {
-            _message = "BAD ARGUMENT";
+            _message = ARGUMENT_ERROR;
             return;
         }
 
@@ -290,10 +290,10 @@ void HandlerOpenArguments::Execute(std::list<Window> &windows, std::string strin
             return;
         }
 
-        _message = "BAD ARGUMENT";
+        _message = ARGUMENT_ERROR;
     }
     catch(const std::exception& e) {
-        _message = "BAD ARGUMENT";
+        _message = ARGUMENT_ERROR;
     }
 }
 
@@ -301,7 +301,7 @@ HandlerCloseArguments::HandlerCloseArguments() {}
 
 void HandlerCloseArguments::Execute(std::list<Window> &windows, std::string string_args) {
     if (windows.empty()) {
-        _message = "Window manager does not have a window";
+        _message = EMPTY_WINDOWS_ERROR;
         return;
     }
 
@@ -313,12 +313,12 @@ void HandlerCloseArguments::Execute(std::list<Window> &windows, std::string stri
         int id = std::stoi(arg1);
 
         if (arg2 != ARGUMENT_START_VALUE) {
-            _message = "BAD ARGUMENT";
+            _message = ARGUMENT_ERROR;
             return;
         }
 
         if (id < 0) {
-            _message = "BAD ARGUMENT";
+            _message = ARGUMENT_ERROR;
             return;
         }
 
@@ -331,9 +331,9 @@ void HandlerCloseArguments::Execute(std::list<Window> &windows, std::string stri
             return;
         }
 
-        _message = "BAD ARGUMENT";
+        _message = ARGUMENT_ERROR;
     }
     catch(const std::exception& e) {
-        _message = "BAD ARGUMENT";
+        _message = ARGUMENT_ERROR;
     }
 }

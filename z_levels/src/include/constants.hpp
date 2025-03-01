@@ -49,3 +49,6 @@
 
 #define BOUNDARY_SYMBOL '#'
 #define EMPTY_CONSOLE "\033[2J\033[1;1H"
+
+#define ARGUMENT_ERROR "Argument error"
+#define EMPTY_WINDOWS_ERROR "Window manager does not have windows"
