@@ -5,7 +5,7 @@
 
 class Parser {
 private:
-    static std::unique_ptr<Parser> _instance;
+    static std::shared_ptr<Parser> _instance;
 protected:
     Parser();
 public:

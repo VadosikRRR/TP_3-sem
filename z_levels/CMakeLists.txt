@@ -14,8 +14,8 @@ set(SOURCE_LIB_POINT ${PATH_TO_CPP_FILES}/point.cpp)
 
 add_library(windows_manager STATIC ${SOURCE_LIB_WINDOWS_MANAGER})
 add_library(parser STATIC ${SOURCE_LIB_PARSER})
-add_library(window STATIC ${SOURCE_LIB_WINDOW})
 add_library(handlers STATIC ${SOURCE_LIB_HANDLERS})
+add_library(window STATIC ${SOURCE_LIB_WINDOW})
 add_library(point STATIC ${SOURCE_LIB_POINT})
 
 add_executable(main ${SOURCE_EXE})

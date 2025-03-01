@@ -2,11 +2,11 @@
 #include "include/constants.hpp"
 
 
-std::unique_ptr<Parser> Parser::_instance = 0;
+std::shared_ptr<Parser> Parser::_instance = 0;
 
 Parser & Parser::Instance() {
     if (!_instance) {
-        _instance = std::make_unique<Parser>(Parser());
+        _instance = std::make_shared<Parser>(Parser());
     }
     
     return *_instance;

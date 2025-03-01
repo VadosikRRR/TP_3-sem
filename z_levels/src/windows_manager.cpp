@@ -1,19 +1,24 @@
 #include "include/windows_manager.hpp"
 #include "include/parser.hpp"
+#include "include/constants.hpp"
 #include <sstream>
 
 
-std::unique_ptr<WindowsManager> WindowsManager::_instance = nullptr;
+std::shared_ptr<WindowsManager> WindowsManager::_instance = nullptr;
 
 WindowsManager & WindowsManager::Instance() {
     if (!_instance) {
-        _instance = std::make_unique<WindowsManager>(WindowsManager());
+        _instance = std::make_shared<WindowsManager>(WindowsManager());
     }
     
     return *_instance;
 }
 
-WindowsManager::WindowsManager() {}
+WindowsManager::WindowsManager() {
+    _commands[ADD] = std::make_shared<HandlerAddArguments>(HandlerAddArguments());
+    _commands[LIST] = std::make_shared<HandlerListArguments>(HandlerListArguments());
+    _commands[MOVE] = std::make_shared<HandlerMoveArguments>(HandlerMoveArguments());
+}
 
 void WindowsManager::Launch() {
     Parser & parser = Parser::Instance();

@@ -13,3 +13,11 @@
 #define START_BASIC_Y_COORDINATE 0
 #define START_BASIC_WIDTH_WINDOW 10
 #define START_BASIC_HEIGHT_WINDOW 10
+
+// For handlers
+#define ARGUMENT_START_VALUE "BAN"
+
+// For windows manager
+#define ADD "add"
+#define LIST "list"
+#define MOVE "move"

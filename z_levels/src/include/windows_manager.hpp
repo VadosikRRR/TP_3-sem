@@ -7,9 +7,9 @@
 
 class WindowsManager {
 private:
-    static std::unique_ptr<WindowsManager> _instance;
+    static std::shared_ptr<WindowsManager> _instance;
     std::list<Window> _windows;
-    std::unordered_map<std::string, std::unique_ptr<HandlerCommandArguments>> _commands;
+    std::unordered_map<std::string, std::shared_ptr<HandlerCommandArguments>> _commands;
     void StringProcessing(std::string command_text);
 protected:
     WindowsManager();
